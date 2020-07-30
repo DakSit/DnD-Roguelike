@@ -36,8 +36,11 @@ body {
   justify-content: center;
 }
 
-.optionbutton {
+.optionButton {
   padding: 1em 1em;
   margin: 1em;
-  display: hide;
+}
+
+#characterStats {
+  display: none;
 }

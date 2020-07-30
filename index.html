@@ -6,29 +6,29 @@
   <link rel="stylesheet" href="css/combatclicks.css">
   <script src="jquery-3.5.1.js"></script>
   <script src="combatclicks.js"></script>
-
-  <script>
-  $(document).ready(function() {
-  $("optionbutton").click(function () {
-  $("optionbutton").toggle()
-});
-});
-  </script>
 </head>
 <body>
   <header>
     <div class="topnav" id="myTopnav">
-      <a href="#home" class="active">Instantly Die</a>
-      <a href="#news">Save</a>
-      <a href="#resume" onClick="howToPlay()">How to Play</a>
+      <a href="#" class="active">Instantly Die</a>
+      <a href="">Save</a>
+      <a href="" onClick="howToPlay()">How to Play</a>
     </div>
   </header>
   <div class="log" id="log">
   </div>
   <div class="options" id="options">
-    <button type="button" class="optionbutton">Click Crusher</button>
-    <button type="button" class="optionbutton">Click Catalyst</button>
-    <button type="button" class="optionbutton">Click Cretin</button>
+    <button type="button" class="optionButton" onClick="classSelection("crusher")" id="optionButton">Click Crusher</button>
+    <button type="button" class="optionButton" onClick="classSelection("catalyst")">Click Catalyst</button>
+    <button type="button" class="optionButton" onClick="classSelection("cretin")">Click Cretin</button>
+  <div class="characterStats" id="characterStats">
+    <div class="statmods" id="statmods">
+      <p>HP: 5</p>
+      <p>Level: 1</p>
+      <p>Class: Crusher</p>
+      <p>CPT: 5</p>
+      <p>TL: 3</p>
+    </div>
 
 
   </div>
