@@ -14,21 +14,33 @@ function howToPlay(){
 }
 
 function classCrusher() {
-  player = new Hero("D", "crusher", 30, 1, 15, 15);
+  player = new Hero("D", "Crusher", 30, 1, 5, 5);
    document.getElementById('playerName').innerHTML = player.name;
    document.getElementById('playerClass').innerHTML = player.className;
    document.getElementById('playerHealth').innerHTML = player.health;
    document.getElementById('playerLevel').innerHTML = player.level;
-   document.getElementbyId('playercpt').innerHTML = player.clicksperturn;
-   document.getElementbyId('playertl').innerHTML = player.turnlimit;
+   document.getElementById('playercpt').innerHTML = player.clicksperturn;
+   document.getElementById('playertl').innerHTML = player.turnlimit;
 }
 
 function classCatalyst() {
-  player = new Hero("D", "catalyst", 30, 1, 5, 5);
+  player = new Hero("D", "Catalyst", 30, 1, 5, 5);
+  document.getElementById('playerName').innerHTML = player.name;
+  document.getElementById('playerClass').innerHTML = player.className;
+  document.getElementById('playerHealth').innerHTML = player.health;
+  document.getElementById('playerLevel').innerHTML = player.level;
+  document.getElementById('playercpt').innerHTML = player.clicksperturn;
+  document.getElementById('playertl').innerHTML = player.turnlimit;
 }
 
 function classCretin() {
-  player = new Hero("D", "cretin", 30, 1, 5, 5);
+  player = new Hero("D", "Cretin", 30, 1, 5, 5);
+  document.getElementById('playerName').innerHTML = player.name;
+  document.getElementById('playerClass').innerHTML = player.className;
+  document.getElementById('playerHealth').innerHTML = player.health;
+  document.getElementById('playerLevel').innerHTML = player.level;
+  document.getElementById('playercpt').innerHTML = player.clicksperturn;
+  document.getElementById('playertl').innerHTML = player.turnlimit;
 }
 
 

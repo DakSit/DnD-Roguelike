@@ -43,4 +43,7 @@ body {
 
 #characterStats {
   display: none;
+  border: 8px solid #000;
+  margin: 0;
+  padding: 1em 1em;
 }
