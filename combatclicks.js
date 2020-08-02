@@ -1,11 +1,11 @@
 class Hero {
-    constructor(name, className, health, level, clicksperturn, turnlimit) {
+    constructor(name, className, health, agility, intelligence, strength) {
         this.name = name;
         this.className = className;
         this.health = health;
-        this.level = level;
-        this.clicksperturn = clicksperturn;
-        this.turnlimit = turnlimit;
+        this.agility = agility;
+        this.intelligence = intelligence;
+        this.strength = strength;
     }
 }
 
@@ -14,33 +14,33 @@ function howToPlay(){
 }
 
 function classCrusher() {
-  player = new Hero("D", "Crusher", 30, 1, 5, 5);
+  player = new Hero("D", "Crusher", 30, 3, 3, 3);
    document.getElementById('playerName').innerHTML = player.name;
    document.getElementById('playerClass').innerHTML = player.className;
    document.getElementById('playerHealth').innerHTML = player.health;
-   document.getElementById('playerLevel').innerHTML = player.level;
-   document.getElementById('playercpt').innerHTML = player.clicksperturn;
-   document.getElementById('playertl').innerHTML = player.turnlimit;
+   document.getElementById('playerAgi').innerHTML = player.agility;
+   document.getElementById('playerInt').innerHTML = player.intelligence;
+   document.getElementById('playerStr').innerHTML = player.strength;
 }
 
 function classCatalyst() {
-  player = new Hero("D", "Catalyst", 30, 1, 5, 5);
-  document.getElementById('playerName').innerHTML = player.name;
-  document.getElementById('playerClass').innerHTML = player.className;
-  document.getElementById('playerHealth').innerHTML = player.health;
-  document.getElementById('playerLevel').innerHTML = player.level;
-  document.getElementById('playercpt').innerHTML = player.clicksperturn;
-  document.getElementById('playertl').innerHTML = player.turnlimit;
+  player = new Hero("D", "Catalyst", 30, 3, 3, 3);
+   document.getElementById('playerName').innerHTML = player.name;
+   document.getElementById('playerClass').innerHTML = player.className;
+   document.getElementById('playerHealth').innerHTML = player.health;
+   document.getElementById('playerAgi').innerHTML = player.agility;
+   document.getElementById('playerInt').innerHTML = player.intelligence;
+   document.getElementById('playerStr').innerHTML = player.strength;
 }
 
 function classCretin() {
-  player = new Hero("D", "Cretin", 30, 1, 5, 5);
-  document.getElementById('playerName').innerHTML = player.name;
-  document.getElementById('playerClass').innerHTML = player.className;
-  document.getElementById('playerHealth').innerHTML = player.health;
-  document.getElementById('playerLevel').innerHTML = player.level;
-  document.getElementById('playercpt').innerHTML = player.clicksperturn;
-  document.getElementById('playertl').innerHTML = player.turnlimit;
+  player = new Hero("D", "Cretin", 30, 3, 3, 3);
+   document.getElementById('playerName').innerHTML = player.name;
+   document.getElementById('playerClass').innerHTML = player.className;
+   document.getElementById('playerHealth').innerHTML = player.health;
+   document.getElementById('playerAgi').innerHTML = player.agility;
+   document.getElementById('playerInt').innerHTML = player.intelligence;
+   document.getElementById('playerStr').innerHTML = player.strength;
 }
 
 
@@ -71,7 +71,7 @@ $(".optionButton").click(function(){
 
 $(document).ready(function(){
 $(".optionButton").click(function(){
-  $("#options").hide();
+  $("#characterOptions").hide();
 
 });})
 

@@ -30,7 +30,7 @@ body {
   text-decoration: underline;
 }
 
-.options {
+.characterOptions {
   display: flex;
   flex-direction: row;
   justify-content: center;
