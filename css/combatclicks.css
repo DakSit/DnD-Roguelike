@@ -47,3 +47,7 @@ body {
   margin: 0;
   padding: 1em 1em;
 }
+
+.inlinep {
+  display: inline;
+}
