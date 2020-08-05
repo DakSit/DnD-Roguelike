@@ -36,7 +36,7 @@ body {
   justify-content: center;
 }
 
-.optionButton {
+.optionButton, .roomButton {
   padding: 1em 1em;
   margin: 1em;
 }
@@ -77,4 +77,14 @@ body {
   padding: 2em 2em;
   margin: 2em;
   height: .5em;
+}
+
+#roomSection {
+  display: none;
+  }
+
+#roomSelection{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

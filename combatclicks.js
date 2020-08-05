@@ -10,6 +10,16 @@ class Hero {
 
 }
 
+class Monster {
+  constructor(name, health, option1, option2, option3){
+    this.name = name;
+    this.className = className;
+    this.option1 = option1;
+    this.option2 = option2;
+    this.option3 = option3;
+    }
+}
+
 var Deck = [];
 
 function howToPlay(){
@@ -63,8 +73,12 @@ function classSelection(name){
   showClass();
   classHide();
   displayStats();
+  populateMonsters();
 }
 
+function populateMonsters(){
+
+}
 
 
 
@@ -79,13 +93,9 @@ function deckCheck(){
 $(document).ready(function(){
 $(".optionButton").click(function(){
   $("#characterStatsWrapper").show();
-
-});})
-
-$(document).ready(function(){
-$(".optionButton").click(function(){
   $("#characterOptions").hide();
-
+  $("#roomSection").show();
 });})
+
 
 //document.getElementById("playerHealth").innerHTML =  player.health;
