@@ -15,6 +15,14 @@
       <a href="" onClick="howToPlay()">How to Play</a>
     </div>
   </header>
+  <div class="roomSection" id="roomSection">
+
+  </div>
+  <div class="combatSection" id="combatSection">
+    <div class="monsterSection" id="monsterSection">
+
+    </div>
+  </div>
   <div class="log" id="log">
   </div>
   <div class="characterOptions" id="characterOptions">
@@ -22,16 +30,37 @@
     <button type="button" class="optionButton" onClick="classSelection(2)" id="catalystSelection">Click Catalyst</button>
     <button type="button" class="optionButton" onClick="classSelection(3)" id="cretinSelection">Click Cretin</button>
   </div>
-  <div class="characterStats" id="characterStats">
-    <div class="statmods" id="statmods">
-      <p>Name: <span id="playerName">0</span></p>
-      <p>Class: <span id="playerClass">0</span></p>
-      <p>Health:<span id="playerHealth">0</span></p>
-      <p>Agility:<span id="playerAgi">0</span></p>
-      <p>Intelligence:<span id="playerInt">0</span></p>
-      <p>Strength:<span id="playerStr">0</span></p>
+  <div class="characterStatsWrapper" id="characterStatsWrapper">
+  <div class="characterStatsFlexDisplay" id="characterStatsFlexDisplay">
+    <div class="characterStats" id="characterStats">
+      <div class="statmods" id="statmods">
+        <p>Name: <span id="playerName">0</span></p>
+        <p>Class: <span id="playerClass">0</span></p>
+        <p>Health:<span id="playerHealth">0</span></p>
+        <p>Agility:<span id="playerAgi">0</span></p>
+        <p>Intelligence:<span id="playerInt">0</span></p>
+        <p>Strength:<span id="playerStr">0</span></p>
+      </div>
     </div>
-
+    <div class="deckDisplay" id="deckDisplay">
+      <button type="button" class="deckButton">Button 1</button>
+      <button type="button" class="deckButton">Button 2</button>
+      <button type="button" class="deckButton">Button 3</button>
+      <button type="button" class="deckButton">Button 4</button>
+      <button type="button" class="deckButton">Button 5</button>
+      <button type="button" class="deckButton">Button 6</button>
+    </div>
+    <div class="enemyStatsDisplay" id="enemyStatsDisplay">
+      <div class="enemystatmods" id="enemystatmods">
+        <p>Enemy Name:<span id="enemyName">0</span></p>
+        <p>Health:<span id="enemyHealth">0</span></p>
+        <p>Clicks:<span id="enemyClicks">0</span></p>
+        <p>Option 1:<span id="enemyOption1">0</span></p>
+        <p>Option 2:<span id="enemyOption2">0</span></p>
+        <p>Option 3:<span id="enemyOption3">0</span></p>
+      </div>
+      </div
+  </div>
 
   </div>
 </body>

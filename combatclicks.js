@@ -7,7 +7,10 @@ class Hero {
         this.intelligence = intelligence;
         this.strength = strength;
     }
+
 }
+
+var Deck = [];
 
 function howToPlay(){
   alert("Welcome! Click a class, click a room, and start clicking!");
@@ -63,9 +66,19 @@ function classSelection(name){
 }
 
 
+
+
+function deckCheck(){
+  if (Deck.length <= 6)
+  {
+
+  }
+}
+
+
 $(document).ready(function(){
 $(".optionButton").click(function(){
-  $("#characterStats").show();
+  $("#characterStatsWrapper").show();
 
 });})
 

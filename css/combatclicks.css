@@ -41,13 +41,40 @@ body {
   margin: 1em;
 }
 
-#characterStats {
+#characterStatsWrapper {
   display: none;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+#characterStatsFlexDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+#characterStats {
+  display: flex;
   border: 8px solid #000;
   margin: 0;
   padding: 1em 1em;
 }
 
-.inlinep {
-  display: inline;
+#deckDisplay {
+  display: flex;
+  padding: 2em 2em;
+  flex-grow: 3;
+}
+
+#enemyStatsDisplay {
+  display: flex;
+  border: 8px solid #000;
+  margin: 0;
+  padding: 1em 1em;
+}
+
+.deckButton {
+  padding: 2em 2em;
+  margin: 2em;
+  height: .5em;
 }
