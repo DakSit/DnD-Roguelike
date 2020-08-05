@@ -13,7 +13,7 @@ class Hero {
 class Monster {
   constructor(name, health, option1, option2, option3){
     this.name = name;
-    this.className = className;
+    this.health = health;
     this.option1 = option1;
     this.option2 = option2;
     this.option3 = option3;
@@ -73,12 +73,40 @@ function classSelection(name){
   showClass();
   classHide();
   displayStats();
-  populateMonsters();
 }
 
 function populateMonsters(){
-
+  let monsters = [
+    {
+      name: "Knigh",
+      health: "5",
+      option1: "Deal 5",
+      option2: "Heal 5",
+      option3: "Deal 3"
+    },
+    {
+      name: "Rogue",
+      health: "5",
+      option1: "Deal 5",
+      option2: "Heal 5",
+      option3: "Deal 3"
+    },
+    {
+      name: "Bigbo",
+      health: "5",
+      option1: "Deal 5",
+      option2: "Heal 5",
+      option3: "Deal 3"
+    }
+  ];
+  var currentMonster = monsters[Math.floor(Math.random() * monsters.length)];
+  document.getElementById('enemyName').innerHTML = currentMonster.name;
+  document.getElementById('enemyHealth').innerHTML = currentMonster.health;
+  document.getElementById('enemyOption1').innerHTML = currentMonster.option1;
+  document.getElementById('enemyOption2').innerHTML = currentMonster.option2;
+  document.getElementById('enemyOption3').innerHTML = currentMonster.option3;
 }
+
 
 
 
@@ -95,6 +123,11 @@ $(".optionButton").click(function(){
   $("#characterStatsWrapper").show();
   $("#characterOptions").hide();
   $("#roomSection").show();
+});})
+
+$(document).ready(function(){
+$(".roomButton").click(function(){
+  $("#roomSelection").hide();
 });})
 
 
