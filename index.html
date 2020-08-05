@@ -15,6 +15,10 @@
       <a href="" onClick="howToPlay()">How to Play</a>
     </div>
   </header>
+  <div class="startTurnButtonDisplay" id="startTurnButtonDisplay">
+    <button type="button" class="startTurnButton" onClick="turnTimerStart()">Start Turn</button>
+    <p>Time:<span id="turnClock">Not Started</span></p>
+  </div>
   <div class="roomSection" id="roomSection">
     <div class="roomSelection" id="roomSelection">
       <button type="button" class="roomButton" onClick="populateMonsters()">Room 1</button>
@@ -29,12 +33,15 @@
   </div>
   <div class="log" id="log">
   </div>
+
   <div class="characterOptions" id="characterOptions">
     <button type="button" class="optionButton" onClick="classSelection(1)" id="crusherSelection">Click Crusher</button>
     <button type="button" class="optionButton" onClick="classSelection(2)" id="catalystSelection">Click Catalyst</button>
     <button type="button" class="optionButton" onClick="classSelection(3)" id="cretinSelection">Click Cretin</button>
   </div>
+
   <div class="characterStatsWrapper" id="characterStatsWrapper">
+
   <div class="characterStatsFlexDisplay" id="characterStatsFlexDisplay">
     <div class="characterStats" id="characterStats">
       <div class="statmods" id="statmods">
@@ -56,7 +63,7 @@
     </div>
     <div class="enemyStatsDisplay" id="enemyStatsDisplay">
       <div class="enemystatmods" id="enemystatmods">
-        <p>Enemy Name:<span id="enemyName">0</span></p>
+        <p>Enemy:<span id="enemyName">0</span></p>
         <p>Health:<span id="enemyHealth">0</span></p>
         <p>Option 1:<span id="enemyOption1">0</span></p>
         <p>Option 2:<span id="enemyOption2">0</span></p>

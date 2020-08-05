@@ -37,7 +37,7 @@ function classCrusher() {
 }
 
 function classCatalyst() {
-  player = new Hero("D", "Catalyst", 30, 3, 3, 3);
+  player = new Hero("D", "Catalyst", 30, 3, 10, 3);
    document.getElementById('playerName').innerHTML = player.name;
    document.getElementById('playerClass').innerHTML = player.className;
    document.getElementById('playerHealth').innerHTML = player.health;
@@ -70,8 +70,6 @@ function classSelection(name){
   else {
     classCretin();
   }
-  showClass();
-  classHide();
   displayStats();
 }
 
@@ -117,6 +115,19 @@ function deckCheck(){
   }
 }
 
+function turnTimerStart(){
+var turnleft = player.intelligence;
+var turnTimer = setInterval(function(){
+  if(turnleft <= 0){
+    clearInterval(turnTimer);
+    document.getElementById("turnClock").innerHTML = "Over";
+  } else {
+    document.getElementById("turnClock").innerHTML = turnleft + " seconds";
+  }
+  turnleft -= 1;
+}, 1000);
+}
+
 
 $(document).ready(function(){
 $(".optionButton").click(function(){
@@ -128,6 +139,7 @@ $(".optionButton").click(function(){
 $(document).ready(function(){
 $(".roomButton").click(function(){
   $("#roomSelection").hide();
+  $("#startTurnButtonDisplay").show();
 });})
 
 
