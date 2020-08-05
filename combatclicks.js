@@ -78,7 +78,7 @@ function classSelection(name){
 function populateMonsters(){
   let monsters = [
     {
-      name: "Knigh",
+      name: "Knight",
       health: "5",
       option1: "Deal 5",
       option2: "Heal 5",
@@ -92,7 +92,7 @@ function populateMonsters(){
       option3: "Deal 3"
     },
     {
-      name: "Bigbo",
+      name: "Big boy",
       health: "5",
       option1: "Deal 5",
       option2: "Heal 5",
