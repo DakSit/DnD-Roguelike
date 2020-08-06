@@ -10,7 +10,7 @@ class Hero {
 
 }
 
-class Monster {
+class Enemy {
   constructor(name, health, option1, option2, option3){
     this.name = name;
     this.health = health;
@@ -73,36 +73,36 @@ function classSelection(name){
   displayStats();
 }
 
-function populateMonsters(){
-  let monsters = [
+function populateEnemies(){
+  let enemies = [
     {
       name: "Knight",
-      health: "5",
+      health: 5,
       option1: "Deal 5",
       option2: "Heal 5",
       option3: "Deal 3"
     },
     {
       name: "Rogue",
-      health: "5",
+      health: 5,
       option1: "Deal 5",
       option2: "Heal 5",
       option3: "Deal 3"
     },
     {
       name: "Big boy",
-      health: "5",
+      health: 5,
       option1: "Deal 5",
       option2: "Heal 5",
       option3: "Deal 3"
     }
   ];
-  var currentMonster = monsters[Math.floor(Math.random() * monsters.length)];
-  document.getElementById('enemyName').innerHTML = currentMonster.name;
-  document.getElementById('enemyHealth').innerHTML = currentMonster.health;
-  document.getElementById('enemyOption1').innerHTML = currentMonster.option1;
-  document.getElementById('enemyOption2').innerHTML = currentMonster.option2;
-  document.getElementById('enemyOption3').innerHTML = currentMonster.option3;
+  var currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+  document.getElementById('enemyName').innerHTML = currentEnemy.name;
+  document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
+  document.getElementById('enemyOption1').innerHTML = currentEnemy.option1;
+  document.getElementById('enemyOption2').innerHTML = currentEnemy.option2;
+  document.getElementById('enemyOption3').innerHTML = currentEnemy.option3;
 }
 
 
@@ -117,10 +117,19 @@ function deckCheck(){
 
 function turnTimerStart(){
 var turnleft = player.intelligence;
+var enabler = document.getElementsByClassName("deckButton");
+for (var i = 0; i < enabler.length; i++) {
+    enabler[i].disabled = false;
+}
 var turnTimer = setInterval(function(){
   if(turnleft <= 0){
     clearInterval(turnTimer);
     document.getElementById("turnClock").innerHTML = "Over";
+    monsterTurn();
+    var disabler = document.getElementsByClassName("deckButton");
+    for (var i = 0; i < disabler.length; i++) {
+        disabler[i].disabled = true;
+    }
   } else {
     document.getElementById("turnClock").innerHTML = turnleft + " seconds";
   }
@@ -128,6 +137,26 @@ var turnTimer = setInterval(function(){
 }, 1000);
 }
 
+function monsterTurn(){
+  player.health -= 5;
+  document.getElementById('playerHealth').innerHTML = player.health;
+}
+
+function hitThatBitch(){
+  currentEnemy.health -= 5;
+  document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
+}
+
+function loseCondition(){
+  if (player.health <= 0)
+  {
+    alert("YOU LOSE!");
+  }
+  else
+  {
+
+  }
+}
 
 $(document).ready(function(){
 $(".optionButton").click(function(){
