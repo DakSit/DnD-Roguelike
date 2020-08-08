@@ -1,3 +1,5 @@
+//var currentEnemy;
+
 class Hero {
     constructor(name, className, health, agility, intelligence, strength) {
         this.name = name;
@@ -11,12 +13,10 @@ class Hero {
 }
 
 class Enemy {
-  constructor(name, health, option1, option2, option3){
+  constructor(name, health, enemyTurn){
     this.name = name;
     this.health = health;
-    this.option1 = option1;
-    this.option2 = option2;
-    this.option3 = option3;
+    this.enemyTurn = enemyTurn;
     }
 }
 
@@ -75,34 +75,14 @@ function classSelection(name){
 
 function populateEnemies(){
   let enemies = [
-    {
-      name: "Knight",
-      health: 5,
-      option1: "Deal 5",
-      option2: "Heal 5",
-      option3: "Deal 3"
-    },
-    {
-      name: "Rogue",
-      health: 5,
-      option1: "Deal 5",
-      option2: "Heal 5",
-      option3: "Deal 3"
-    },
-    {
-      name: "Big boy",
-      health: 5,
-      option1: "Deal 5",
-      option2: "Heal 5",
-      option3: "Deal 3"
-    }
+    new Enemy("Knight", 10, "deal 5"),
+    new Enemy("Mage", 5, "deal 10"),
+    new Enemy("Big Boy", 15, "deal 15")
   ];
-  var currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+  currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   document.getElementById('enemyName').innerHTML = currentEnemy.name;
   document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
-  document.getElementById('enemyOption1').innerHTML = currentEnemy.option1;
-  document.getElementById('enemyOption2').innerHTML = currentEnemy.option2;
-  document.getElementById('enemyOption3').innerHTML = currentEnemy.option3;
+  document.getElementById('enemyTurn').innerHTML = currentEnemy.enemyTurn;
 }
 
 
