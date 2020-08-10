@@ -64,6 +64,8 @@ body {
   display: flex;
   padding: 2em 2em;
   flex-grow: 3;
+  align-items: center;
+  justify-content: center;
 }
 
 #enemyStatsDisplay {
@@ -71,6 +73,11 @@ body {
   border: 8px solid #000;
   margin: 0;
   padding: 1em 1em;
+}
+
+.deckButtons {
+  align-items: center;
+  justify-content: center;
 }
 
 .deckButton {
