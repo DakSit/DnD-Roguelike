@@ -91,7 +91,7 @@ function populateEnemies(){
 
 
 function deckCheck(){
-  if (Deck.length <= 6)
+  if (Deck.length <= 4)
   {
 
   }
