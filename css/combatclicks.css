@@ -41,7 +41,7 @@ body {
   margin: 1em;
 }
 
-#characterStatsWrapper {
+#bottomStatsWrapper {
   display: none;
   flex-wrap: wrap;
   flex-direction: row;

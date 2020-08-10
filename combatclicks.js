@@ -1,6 +1,6 @@
 //var currentEnemy;
 
-var completedRooms;
+var completedRooms = 0;
 
 class Hero {
     constructor(name, className, health, agility, intelligence, strength) {
@@ -58,6 +58,24 @@ function classCretin() {
    document.getElementById('playerStr').innerHTML = player.strength;
 }
 
+function checkBoss() {
+  if (completedRooms >= 5)
+  {
+    let enemies = [
+      new Enemy("Mega Knight", 10, 5),
+      new Enemy("Mega Mage", 5, 10),
+      new Enemy("Mega Big Boy", 15, 10)
+    ];
+    currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    document.getElementById('enemyName').innerHTML = currentEnemy.name;
+    document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
+    document.getElementById('enemyAttack').innerHTML = currentEnemy.enemyAttack;
+  }
+    else {
+
+    }
+  }
+
 
 
 function classSelection(name){
@@ -85,6 +103,7 @@ function populateEnemies(){
   document.getElementById('enemyName').innerHTML = currentEnemy.name;
   document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
   document.getElementById('enemyAttack').innerHTML = currentEnemy.enemyAttack;
+  checkBoss();
 }
 
 
@@ -125,7 +144,7 @@ function monsterTurn(){
 }
 
 function hitEnemy(){
-  currentEnemy.health -= player.strength;
+  currentEnemy.health -= player.strength * 100;
   document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
   endCombatCheck();
 }
@@ -159,7 +178,7 @@ function loseCondition(){
 
 $(document).ready(function(){
 $(".optionButton").click(function(){
-  $("#characterStatsWrapper").show();
+  $("#bottomStatsWrapper").show();
   $("#characterOptions").hide();
   $("#roomSection").show();
 });})
