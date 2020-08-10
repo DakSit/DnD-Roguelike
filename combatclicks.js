@@ -134,7 +134,6 @@ function endCombatCheck(){
   if (currentEnemy.health <= 0)
   {
     completedRooms++;
-    $( ".deckDisplay" ).hide();
     $( ".enemyStatsDisplay" ).hide();
     $( "#roomSelection" ).show();
     $( "#startTurnButtonDisplay" ).hide();
@@ -169,6 +168,7 @@ $(document).ready(function(){
 $(".roomButton").click(function(){
   $("#roomSelection").hide();
   $("#startTurnButtonDisplay").show();
+  $("#enemyStatsDisplay").show();
 });})
 
 
