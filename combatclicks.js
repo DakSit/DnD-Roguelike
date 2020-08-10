@@ -1,5 +1,7 @@
 //var currentEnemy;
 
+var completedRooms;
+
 class Hero {
     constructor(name, className, health, agility, intelligence, strength) {
         this.name = name;
@@ -13,10 +15,10 @@ class Hero {
 }
 
 class Enemy {
-  constructor(name, health, enemyTurn){
+  constructor(name, health, enemyAttack){
     this.name = name;
     this.health = health;
-    this.enemyTurn = enemyTurn;
+    this.enemyAttack = enemyAttack;
     }
 }
 
@@ -75,14 +77,14 @@ function classSelection(name){
 
 function populateEnemies(){
   let enemies = [
-    new Enemy("Knight", 10, "deal 5"),
-    new Enemy("Mage", 5, "deal 10"),
-    new Enemy("Big Boy", 15, "deal 15")
+    new Enemy("Knight", 10, 5),
+    new Enemy("Mage", 5, 10),
+    new Enemy("Big Boy", 15, 10)
   ];
   currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   document.getElementById('enemyName').innerHTML = currentEnemy.name;
   document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
-  document.getElementById('enemyTurn').innerHTML = currentEnemy.enemyTurn;
+  document.getElementById('enemyAttack').innerHTML = currentEnemy.enemyAttack;
 }
 
 
@@ -118,13 +120,31 @@ var turnTimer = setInterval(function(){
 }
 
 function monsterTurn(){
-  player.health -= 5;
+  player.health -= currentEnemy.enemyAttack;
   document.getElementById('playerHealth').innerHTML = player.health;
 }
 
-function hitThatBitch(){
-  currentEnemy.health -= 5;
+function hitEnemy(){
+  currentEnemy.health -= player.strength;
   document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
+  endCombatCheck();
+}
+
+function endCombatCheck(){
+  if (currentEnemy.health <= 0)
+  {
+    completedRooms++;
+    $( ".deckDisplay" ).hide();
+    $( ".enemyStatsDisplay" ).hide();
+    $( "#roomSelection" ).show();
+    $( "#startTurnButtonDisplay" ).hide();
+
+
+  }
+  else
+  {
+
+  }
 }
 
 function loseCondition(){

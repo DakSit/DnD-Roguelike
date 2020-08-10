@@ -52,6 +52,7 @@ body {
   flex-direction: row;
 }
 
+
 #characterStats {
   display: flex;
   border: 8px solid #000;
