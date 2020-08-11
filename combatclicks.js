@@ -1,6 +1,7 @@
 //var currentEnemy;
 
 var completedRooms = 0;
+var fightingBoss = false;
 
 class Hero {
     constructor(name, className, health, agility, intelligence, strength) {
@@ -70,6 +71,7 @@ function checkBoss() {
     document.getElementById('enemyName').innerHTML = currentEnemy.name;
     document.getElementById('enemyHealth').innerHTML = currentEnemy.health;
     document.getElementById('enemyAttack').innerHTML = currentEnemy.enemyAttack;
+    fightingBoss = true;
   }
     else {
 
@@ -156,8 +158,14 @@ function endCombatCheck(){
     $( ".enemyStatsDisplay" ).hide();
     $( "#roomSelection" ).show();
     $( "#startTurnButtonDisplay" ).hide();
+    if (fightingBoss == true)
+    {
+      $("body").hide();
+    }
+    else
+    {
 
-
+    }
   }
   else
   {
