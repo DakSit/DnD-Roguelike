@@ -161,6 +161,7 @@ function endCombatCheck(){
     if (fightingBoss == true)
     {
       $("body").hide();
+      alert("You win!");
     }
     else
     {
