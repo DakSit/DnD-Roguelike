@@ -93,3 +93,8 @@ body {
     display: none;
     text-align: center;
 }
+#characterSelect{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
