@@ -165,6 +165,8 @@ var turnTimer = setInterval(function(){
   if(turnleft <= 0){
     clearInterval(turnTimer);
     document.getElementById("turnClock").innerHTML = "Over";
+    monsterTurn();
+    loseCondition();
     currentEnemy.attackPlayer();
     var disabler = document.getElementsByClassName("deckButton");
     for (var i = 0; i < disabler.length; i++) {
@@ -210,11 +212,14 @@ function endCombatCheck(){
 function loseCondition(){
   if (player.health <= 0)
   {
-    alert("YOU LOSE!");
+    var disabler = document.getElementsByClassName("startTurnButton");
+    for (var i = 0; i < disabler.length; i++) {
+        disabler[i].disabled = true;
+    }
+    alert("YOU LOSE! Click Instantly Die at the top to play again");
   }
   else
   {
-
   }
 }
 
@@ -222,6 +227,7 @@ $(document).ready(function(){
 $(".optionButton").click(function(){
   $("#bottomStatsWrapper").show();
   $("#characterOptions").hide();
+  $("#characterSelect").hide();
   $("#roomSection").show();
 });})
 

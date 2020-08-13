@@ -101,6 +101,11 @@ body {
     text-align: center;
 }
 
+#characterSelect{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
 .hidden {
   display: none;
 }
