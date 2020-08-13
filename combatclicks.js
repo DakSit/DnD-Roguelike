@@ -29,6 +29,32 @@ class Enemy {
     }
 }
 
+class Knight extends Enemy {
+  attackPlayer() {
+    player.health -= this.enemyAttack;
+    this.enemyAttack += this.enemyAttack;
+    updateScreen('playerHealth', player.health);
+  }
+}
+
+class Mage extends Enemy {
+  attackPlayer() {
+    player.health -= this.enemyAttack;
+    player.intelligence -= 1;
+    updateScreen('playerHealth', player.health);
+    updateScreen('playerInt', player.intelligence);
+  }
+}
+
+class Rogue extends Enemy {
+  attackPlayer() {
+    player.health -= this.enemyAttack;
+    player.strength -= 1;
+    updateScreen('playerHealth', player.health);
+    updateScreen('playerInt', player.strength);
+  }
+}
+
 function updateScreen(id, target)
 {
   document.getElementById(id).innerHTML = target;
@@ -74,7 +100,7 @@ function checkBoss() {
   if (completedRooms >= 5)
   {
     let enemies = [
-      new Enemy("Mega Knight", 10, 5),
+      new Knight("Mega Knight", 10, 5),
       new Enemy("Mega Mage", 5, 10),
       new Enemy("Mega Big Boy", 15, 10)
     ];
@@ -108,9 +134,9 @@ function classSelection(name){
 
 function populateEnemies(){
   let enemies = [
-    new Enemy("Knight", 10, 5),
-    new Enemy("Mage", 5, 10),
-    new Enemy("Big Boy", 15, 10)
+    new Knight("Knight", 10, 5),
+    new Mage("Mage", 5, 10),
+    new Rogue("Rogue", 15, 10)
   ];
   currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   updateScreen('enemyName',currentEnemy.name);
