@@ -91,7 +91,7 @@ function populateEnemies(){
 
 
 function deckCheck(){
-  if (Deck.length <= 6)
+  if (Deck.length <= 4)
   {
 
   }
@@ -108,6 +108,7 @@ var turnTimer = setInterval(function(){
     clearInterval(turnTimer);
     document.getElementById("turnClock").innerHTML = "Over";
     monsterTurn();
+    loseCondition();
     var disabler = document.getElementsByClassName("deckButton");
     for (var i = 0; i < disabler.length; i++) {
         disabler[i].disabled = true;
@@ -150,11 +151,14 @@ function endCombatCheck(){
 function loseCondition(){
   if (player.health <= 0)
   {
-    alert("YOU LOSE!");
+    var disabler = document.getElementsByClassName("startTurnButton");
+    for (var i = 0; i < disabler.length; i++) {
+        disabler[i].disabled = true;
+    }
+    alert("YOU LOSE! Click Instantly Die at the top to play again");
   }
   else
   {
-
   }
 }
 
@@ -162,6 +166,7 @@ $(document).ready(function(){
 $(".optionButton").click(function(){
   $("#characterStatsWrapper").show();
   $("#characterOptions").hide();
+  $("#characterSelect").hide();
   $("#roomSection").show();
 });})
 
