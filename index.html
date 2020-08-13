@@ -44,7 +44,12 @@
     <button type="button" class="optionButton" onClick="classSelection(3)" id="cretinSelection">Click Cretin</button>
     </div>
   </div>
+
   <div class="characterStatsWrapper" id="characterStatsWrapper">
+
+
+<div class="bottomStatsWrapper" id="bottomStatsWrapper">
+
 
   <div class="characterStatsFlexDisplay" id="characterStatsFlexDisplay">
     <div class="characterStats" id="characterStats">
@@ -58,12 +63,16 @@
       </div>
     </div>
     <div class="deckDisplay" id="deckDisplay">
+      <div class="deckButtons" id="deckButtons">
       <button type="button" class="deckButton" onClick="hitEnemy()" disabled>Button 1</button>
       <button type="button" class="deckButton" disabled>Button 2</button>
       <button type="button" class="deckButton" disabled>Button 3</button>
       <button type="button" class="deckButton" disabled>Button 4</button>
+
+      </div>
     </div>
-    <div class="enemyStatsDisplay" id="enemyStatsDisplay">
+
+    <div class="enemyStatsDisplay hidden" id="enemyStatsDisplay">
       <div class="enemystatmods" id="enemystatmods">
         <p>Enemy:<span id="enemyName">0</span></p>
         <p>Health:<span id="enemyHealth">0</span></p>
@@ -72,5 +81,5 @@
     </div>
   </div>
 
-  </div>
+</div>
 </body>
