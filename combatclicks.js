@@ -165,9 +165,8 @@ var turnTimer = setInterval(function(){
   if(turnleft <= 0){
     clearInterval(turnTimer);
     document.getElementById("turnClock").innerHTML = "Over";
-    monsterTurn();
-    loseCondition();
     currentEnemy.attackPlayer();
+    loseCondition();
     var disabler = document.getElementsByClassName("deckButton");
     for (var i = 0; i < disabler.length; i++) {
         disabler[i].disabled = true;
