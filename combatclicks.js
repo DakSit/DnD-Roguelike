@@ -16,6 +16,30 @@ class Hero {
 
 }
 
+  const buttonsData = [{
+      color: 'red',
+      text: 'Foo'
+    },
+    {
+      color: 'green',
+      text: 'Bar'
+    },
+    {
+      color: 'blue',
+      text: 'Baz'
+    }
+  ];
+
+  const buttonsContainer = document.getElementById('buttons-container');
+
+  buttonsData.forEach(buttonData => {
+    const button = document.createElement('button');
+    button.style.color = buttonData.color;
+    button.textContent = buttonData.text;
+    buttonsContainer.appendChild(button);
+  });
+
+
 class Enemy {
   constructor(name, health, enemyAttack){
     this.name = name;
