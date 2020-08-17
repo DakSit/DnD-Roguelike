@@ -74,6 +74,9 @@ function classCrusher() {
    updateScreen('playerAgi',player.agility);
    updateScreen('playerInt',player.intelligence);
    updateScreen('playerStr',player.strength);
+   crusherOne();
+   crusherTwo();
+   crusherThree();
 }
 
 function classCatalyst() {
@@ -237,16 +240,48 @@ $(".roomButton").click(function(){
   $("#enemyStatsDisplay").show();
 });})
 
-function test() {
+//Class Button section
+
+function crusherOne() {
     var r=$('<input/>').attr({
         type: "button",
         id: "punchButton",
         class: "deckButton",
-        value: 'Button 5'
+        value: 'Big Hit',
+        title: 'Deal 999 damage'
     });
     $(".deckButtons").append(r);
+     $("#punchButton").prop("disabled",true);
     //$(“.deckButton”).attr(“disabled”, true);
+    document.getElementById("punchButton").addEventListener("click", hitEnemy);
 }
 
+function crusherTwo() {
+    var r=$('<input/>').attr({
+        type: "button",
+        id: "kickButton",
+        class: "deckButton",
+        value: 'Big Kick',
+        title: 'Deal 999 damage'
+    });
+    $(".deckButtons").append(r);
+     $("#kickButton").prop("disabled",true);
+    //$(“.deckButton”).attr(“disabled”, true);
+    document.getElementById("kickButton").addEventListener("click", hitEnemy);
+}
+
+function crusherThree() {
+    var r=$('<input/>').attr({
+        type: "button",
+        id: "biteButton",
+        class: "deckButton",
+        value: 'Big Bite',
+        title: 'Deal 999 damage'
+    });
+    $(".deckButtons").append(r);
+     $("#biteButton").prop("disabled",true);
+    //$(“.deckButton”).attr(“disabled”, true);
+    document.getElementById("biteButton").addEventListener("click", hitEnemy);
+}
 
 //document.getElementById("playerHealth").innerHTML =  player.health;
