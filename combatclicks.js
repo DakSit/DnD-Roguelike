@@ -18,27 +18,42 @@ class Hero {
 
   const buttonsData = [{
       color: 'red',
-      text: 'Foo'
+      text: 'Big Hit'
     },
     {
       color: 'green',
-      text: 'Bar'
+      text: 'Big Kick'
     },
     {
       color: 'blue',
-      text: 'Baz'
+      text: 'Big Bite'
     }
   ];
 
-  const buttonsContainer = document.getElementById('buttons-container');
+  const buttonsContainer = document.getElementById('deckButtons');
 
   buttonsData.forEach(buttonData => {
     const button = document.createElement('button');
-    button.style.color = buttonData.color;
+    $( "p" ).last().addClass( "selected" );
     button.textContent = buttonData.text;
+    button.
     buttonsContainer.appendChild(button);
+
   });
 
+  function crusherOne() {
+      var r=$('<input/>').attr({
+          type: "button",
+          id: "punchButton",
+          class: "deckButton",
+          value: 'Big Hit',
+          title: 'Deal 999 damage'
+      });
+      $(".deckButtons").append(r);
+       $("#punchButton").prop("disabled",true);
+      //$(“.deckButton”).attr(“disabled”, true);
+      document.getElementById("punchButton").addEventListener("click", hitEnemy);
+  }
 
 class Enemy {
   constructor(name, health, enemyAttack){
