@@ -237,5 +237,16 @@ $(".roomButton").click(function(){
   $("#enemyStatsDisplay").show();
 });})
 
+function test() {
+    var r=$('<input/>').attr({
+        type: "button",
+        id: "punchButton",
+        class: "deckButton",
+        value: 'Button 5'
+    });
+    $(".deckButtons").append(r);
+    //$(“.deckButton”).attr(“disabled”, true);
+}
+
 
 //document.getElementById("playerHealth").innerHTML =  player.health;
