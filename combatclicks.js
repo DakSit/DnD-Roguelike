@@ -15,6 +15,7 @@ class Hero {
     }
 
 }
+
 function createDeck(){
   const deck = [{
       text: 'Big Hit',
@@ -35,20 +36,22 @@ function createDeck(){
 /*  deck.forEach((item, i) => {
   item.id = i + 1;
 }); */
-  var i = 0
+var j = 0
   deck.forEach(buttonData => {
     const button = document.createElement('button');
     //$( "p" ).last().addClass( "selected" );
     button.textContent = buttonData.text;
     button.title = buttonData.titleContent;
-    button.id = i + 1;
+    button.id = "button" + j;
+    j++;
     button.classList.add("deckButton");
     buttonsContainer.appendChild(button);
+    console.log(deck);
   });
-  document.getElementById("1").addEventListener("click", hitEnemy());
-  document.getElementById("2").addEventListener("click", hitEnemy());
-  document.getElementById("3").addEventListener("click", hitEnemy());
 
+  document.getElementById("button0").addEventListener("click", hitEnemy);
+  document.getElementById("button1").addEventListener("click", hitEnemy);
+  document.getElementById("button2").addEventListener("click", hitEnemy);
 }
   function crusherOne() {
       var r=$('<input/>').attr({
@@ -77,29 +80,39 @@ class Enemy {
     }
 }
 
+
 class Knight extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     this.enemyAttack += this.enemyAttack;
     updateScreen('playerHealth', player.health);
+  }
   }
 }
 
 class Mage extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     player.intelligence -= 1;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.intelligence);
   }
+  }
 }
 
 class Rogue extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     player.strength -= 1;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.strength);
+  }
   }
 }
 
@@ -230,6 +243,11 @@ function hitEnemy(){
   currentEnemy.health -= player.strength * 100;
   updateScreen('enemyHealth',currentEnemy.health);
   endCombatCheck();
+}
+
+function heal(){
+  player.health += 5;
+  updateScreen('playerHealth', player.health);
 }
 
 function endCombatCheck(){
