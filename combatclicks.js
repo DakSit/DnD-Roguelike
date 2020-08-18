@@ -15,32 +15,41 @@ class Hero {
     }
 
 }
-
-  const buttonsData = [{
-      color: 'red',
-      text: 'Big Hit'
+function createDeck(){
+  const deck = [{
+      text: 'Big Hit',
+      titleContent: 'Deal 999 damage'
     },
     {
-      color: 'green',
-      text: 'Big Kick'
+      text: 'Big Kick',
+      titleContent: 'Deal 999 damage'
     },
     {
-      color: 'blue',
-      text: 'Big Bite'
+      text: 'Big Bite',
+      titleContent: 'Deal 999 damage'
     }
   ];
 
   const buttonsContainer = document.getElementById('deckButtons');
 
-  buttonsData.forEach(buttonData => {
+/*  deck.forEach((item, i) => {
+  item.id = i + 1;
+}); */
+  var i = 0
+  deck.forEach(buttonData => {
     const button = document.createElement('button');
-    $( "p" ).last().addClass( "selected" );
+    //$( "p" ).last().addClass( "selected" );
     button.textContent = buttonData.text;
-    button.
+    button.title = buttonData.titleContent;
+    button.id = i + 1;
+    button.classList.add("deckButton");
     buttonsContainer.appendChild(button);
-
   });
+  document.getElementById("1").addEventListener("click", hitEnemy());
+  document.getElementById("2").addEventListener("click", hitEnemy());
+  document.getElementById("3").addEventListener("click", hitEnemy());
 
+}
   function crusherOne() {
       var r=$('<input/>').attr({
           type: "button",
@@ -99,8 +108,6 @@ function updateScreen(id, target)
   document.getElementById(id).innerHTML = target;
 }
 
-var Deck = [];
-
 function howToPlay(){
   alert("Welcome! Click a class, click a room, and start clicking!");
 }
@@ -113,9 +120,7 @@ function classCrusher() {
    updateScreen('playerAgi',player.agility);
    updateScreen('playerInt',player.intelligence);
    updateScreen('playerStr',player.strength);
-   crusherOne();
-   crusherTwo();
-   crusherThree();
+   createDeck();
 }
 
 function classCatalyst() {
