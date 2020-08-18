@@ -16,6 +16,57 @@ class Hero {
 
 }
 
+function createDeck(){
+  const deck = [{
+      text: 'Big Hit',
+      titleContent: 'Deal 999 damage'
+    },
+    {
+      text: 'Big Kick',
+      titleContent: 'Deal 999 damage'
+    },
+    {
+      text: 'Big Bite',
+      titleContent: 'Deal 999 damage'
+    }
+  ];
+
+  const buttonsContainer = document.getElementById('deckButtons');
+
+/*  deck.forEach((item, i) => {
+  item.id = i + 1;
+}); */
+var j = 0
+  deck.forEach(buttonData => {
+    const button = document.createElement('button');
+    //$( "p" ).last().addClass( "selected" );
+    button.textContent = buttonData.text;
+    button.title = buttonData.titleContent;
+    button.id = "button" + j;
+    j++;
+    button.classList.add("deckButton");
+    buttonsContainer.appendChild(button);
+    console.log(deck);
+  });
+
+  document.getElementById("button0").addEventListener("click", hitEnemy);
+  document.getElementById("button1").addEventListener("click", hitEnemy);
+  document.getElementById("button2").addEventListener("click", hitEnemy);
+}
+  function crusherOne() {
+      var r=$('<input/>').attr({
+          type: "button",
+          id: "punchButton",
+          class: "deckButton",
+          value: 'Big Hit',
+          title: 'Deal 999 damage'
+      });
+      $(".deckButtons").append(r);
+       $("#punchButton").prop("disabled",true);
+      //$(“.deckButton”).attr(“disabled”, true);
+      document.getElementById("punchButton").addEventListener("click", hitEnemy);
+  }
+
 class Enemy {
   constructor(name, health, enemyAttack){
     this.name = name;
@@ -29,29 +80,39 @@ class Enemy {
     }
 }
 
+
 class Knight extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     this.enemyAttack += this.enemyAttack;
     updateScreen('playerHealth', player.health);
+  }
   }
 }
 
 class Mage extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     player.intelligence -= 1;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.intelligence);
   }
+  }
 }
 
 class Rogue extends Enemy {
   attackPlayer() {
+    if (this.health >= 0)
+    {
     player.health -= this.enemyAttack;
     player.strength -= 1;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.strength);
+  }
   }
 }
 
@@ -59,8 +120,6 @@ function updateScreen(id, target)
 {
   document.getElementById(id).innerHTML = target;
 }
-
-var Deck = [];
 
 function howToPlay(){
   alert("Welcome! Click a class, click a room, and start clicking!");
@@ -74,9 +133,7 @@ function classCrusher() {
    updateScreen('playerAgi',player.agility);
    updateScreen('playerInt',player.intelligence);
    updateScreen('playerStr',player.strength);
-   crusherOne();
-   crusherTwo();
-   crusherThree();
+   createDeck();
 }
 
 function classCatalyst() {
@@ -186,6 +243,11 @@ function hitEnemy(){
   currentEnemy.health -= player.strength * 100;
   updateScreen('enemyHealth',currentEnemy.health);
   endCombatCheck();
+}
+
+function heal(){
+  player.health += 5;
+  updateScreen('playerHealth', player.health);
 }
 
 function endCombatCheck(){
