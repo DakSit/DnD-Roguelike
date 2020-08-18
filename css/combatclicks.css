@@ -71,8 +71,25 @@ body {
 #enemyStatsDisplay {
   display: flex;
   border: 8px solid #000;
+  min-width: 5em;
+  max-width: 5em;
   margin: 0;
   padding: 1em 1em;
+}
+
+.log {
+  text-align:center;
+  padding: 1em 1em;
+}
+
+#combatlog {
+  background-color: grey;
+  border: 4px solid #000;
+}
+
+#log {
+  text-align: center;
+  display: none;
 }
 
 .deckButtons {

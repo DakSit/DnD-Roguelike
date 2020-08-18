@@ -18,7 +18,7 @@ class Hero {
 
 function createDeck(){
   const deck = [{
-      text: 'Big Hit',
+      text: 'Big Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit',
       titleContent: 'Deal 999 damage'
     },
     {
@@ -78,6 +78,10 @@ class Enemy {
       player.health -= this.enemyAttack;
       updateScreen('playerHealth',player.health);
     }
+
+    displayIntent() {
+      updateScreen('combatlog', "The Knight intends to hit you");
+    }
 }
 
 
@@ -90,6 +94,10 @@ class Knight extends Enemy {
     updateScreen('playerHealth', player.health);
   }
   }
+  displayIntent() {
+    $("#log").show();
+    updateScreen('combatlog', "The Knight intends to hit you");
+  }
 }
 
 class Mage extends Enemy {
@@ -100,7 +108,11 @@ class Mage extends Enemy {
     player.intelligence -= 1;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.intelligence);
+    }
   }
+  displayIntent() {
+    $("#log").show();
+    updateScreen('combatlog', "The Knight intends to hit you");
   }
 }
 
@@ -113,6 +125,11 @@ class Rogue extends Enemy {
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.strength);
   }
+}
+  displayIntent() {
+    $("#log").show();
+    updateScreen('combatlog', "The Knight intends to hit you");
+
   }
 }
 
@@ -202,6 +219,7 @@ function populateEnemies(){
   updateScreen('enemyName',currentEnemy.name);
   updateScreen('enemyHealth',currentEnemy.health);
   updateScreen('enemyAttack',currentEnemy.enemyAttack);
+  currentEnemy.displayIntent();
   checkBoss();
 }
 
@@ -227,6 +245,7 @@ var turnTimer = setInterval(function(){
     document.getElementById("turnClock").innerHTML = "Over";
     currentEnemy.attackPlayer();
     loseCondition();
+    currentEnemy.displayIntent();
     var disabler = document.getElementsByClassName("deckButton");
     for (var i = 0; i < disabler.length; i++) {
         disabler[i].disabled = true;
