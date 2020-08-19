@@ -48,7 +48,7 @@ var j = 0
     buttonsContainer.appendChild(button);
     console.log(deck);
   });
-
+  disabler();
   document.getElementById("button0").addEventListener("click", hitEnemy);
   document.getElementById("button1").addEventListener("click", hitEnemy);
   document.getElementById("button2").addEventListener("click", hitEnemy);
@@ -173,7 +173,7 @@ function classCretin() {
    updateScreen('playerStr',player.strength);
 }
 
-function checkBoss() {
+/*function checkBoss() {
   if (completedRooms >= 5)
   {
     let enemies = [
@@ -190,7 +190,7 @@ function checkBoss() {
     else {
 
     }
-  }
+  }*/
 
 
 
@@ -210,17 +210,29 @@ function classSelection(name){
 }
 
 function populateEnemies(){
+  if (completedRooms >= 5)
+  {
+    let enemies = [
+      new Knight("Mega Knight", 10, 5),
+      new Mage("Mega Mage", 5, 50),
+      new Rogue("Mega Big Boy", 15, 25)
+    ];
+    fightingBoss = true;
+    currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+  }
+  else {
   let enemies = [
     new Knight("Knight", 10, 5),
     new Mage("Mage", 5, 10),
     new Rogue("Rogue", 15, 10)
   ];
   currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
-  updateScreen('enemyName',currentEnemy.name);
-  updateScreen('enemyHealth',currentEnemy.health);
-  updateScreen('enemyAttack',currentEnemy.enemyAttack);
-  currentEnemy.displayIntent();
-  checkBoss();
+  }
+
+updateScreen('enemyName',currentEnemy.name);
+updateScreen('enemyHealth',currentEnemy.health);
+updateScreen('enemyAttack',currentEnemy.enemyAttack);
+currentEnemy.displayIntent();
 }
 
 
@@ -233,12 +245,23 @@ function deckCheck(){
   }
 }
 
+function enabler(){
+  var enabler = document.getElementsByClassName("deckButton");
+  for (var i = 0; i < enabler.length; i++) {
+    enabler[i].disabled = false;
+  }
+}
+
+function disabler(){
+  var disabler = document.getElementsByClassName("deckButton");
+  for (var i = 0; i < disabler.length; i++) {
+    disabler[i].disabled = true;
+  }
+}
+
 function turnTimerStart(){
 var turnleft = player.intelligence;
-var enabler = document.getElementsByClassName("deckButton");
-for (var i = 0; i < enabler.length; i++) {
-    enabler[i].disabled = false;
-}
+enabler();
 var turnTimer = setInterval(function(){
   if(turnleft <= 0){
     clearInterval(turnTimer);
@@ -246,10 +269,7 @@ var turnTimer = setInterval(function(){
     currentEnemy.attackPlayer();
     loseCondition();
     currentEnemy.displayIntent();
-    var disabler = document.getElementsByClassName("deckButton");
-    for (var i = 0; i < disabler.length; i++) {
-        disabler[i].disabled = true;
-    }
+    disabler();
   } else {
     document.getElementById("turnClock").innerHTML = turnleft + " seconds";
   }
@@ -272,8 +292,12 @@ function heal(){
 function endCombatCheck(){
   if (currentEnemy.health <= 0)
   {
-    completedRooms++;
-    $( ".enemyStatsDisplay" ).hide();
+    disabler();
+    completedRooms+=4;
+    updateScreen('enemyName', " None");
+    updateScreen('enemyHealth', " None");
+    updateScreen('enemyAttack', " None");
+    //$( ".enemyStatsDisplay" ).hide();
     $( "#roomSelection" ).show();
     $( "#startTurnButtonDisplay" ).hide();
     if (fightingBoss == true)
