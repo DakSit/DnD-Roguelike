@@ -260,6 +260,7 @@ function disabler(){
 }
 
 function turnTimerStart(){
+document.getElementById("startTurnButton").disabled = true;
 var turnleft = player.intelligence;
 enabler();
 var turnTimer = setInterval(function(){
@@ -270,6 +271,7 @@ var turnTimer = setInterval(function(){
     loseCondition();
     currentEnemy.displayIntent();
     disabler();
+    document.getElementById("startTurnButton").disabled = false;
   } else {
     document.getElementById("turnClock").innerHTML = turnleft + " seconds";
   }
