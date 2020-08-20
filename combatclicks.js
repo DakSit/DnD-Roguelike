@@ -139,7 +139,7 @@ function updateScreen(id, target)
 }
 
 function howToPlay(){
-  alert("Welcome! Click a class, click a room, and start clicking!");
+  alert("Welcome! Click a class, click a room, and start clicking!\r\nEvery time you end your turn the foe will go if you haven't defeated it.\r\nStats matter! And so do the buttons you can collect.");
 }
 
 function classCrusher() {
