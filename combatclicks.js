@@ -1,17 +1,19 @@
 //var currentEnemy;
 
-
 var completedRooms = 0;
 var fightingBoss = false;
 
 class Hero {
-    constructor(name, className, health, agility, intelligence, strength) {
+    constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
         this.name = name;
         this.className = className;
         this.health = health;
-        this.agility = agility;
-        this.intelligence = intelligence;
-        this.strength = strength;
+        this.maxAgility = maxAgility;
+        this.maxIntelligence = maxIntelligence;
+        this.maxStrength = maxStrength;
+        this.currentAgility = currentAgility;
+        this.currentStrength = currentStrength;
+        this.currentIntelligence = currentIntelligence;
     }
 
 }
@@ -105,9 +107,9 @@ class Mage extends Enemy {
     if (this.health >= 0)
     {
     player.health -= this.enemyAttack;
-    player.intelligence -= 1;
+    player.maxIntelligence -= 1;
     updateScreen('playerHealth', player.health);
-    updateScreen('playerInt', player.intelligence);
+    updateScreen('playerInt', player.maxIntelligence);
     }
   }
   displayIntent() {
@@ -121,9 +123,9 @@ class Rogue extends Enemy {
     if (this.health >= 0)
     {
     player.health -= this.enemyAttack;
-    player.strength -= 1;
+    player.maxStrength -= 1;
     updateScreen('playerHealth', player.health);
-    updateScreen('playerInt', player.strength);
+    updateScreen('playerInt', player.maxStrength);
   }
 }
   displayIntent() {
@@ -143,34 +145,34 @@ function howToPlay(){
 }
 
 function classCrusher() {
-  player = new Hero("D", "Crusher", 30, 3, 3, 3);
+  player = new Hero("D", "Crusher", 30, 3, 3, 3, 3, 3, 3);
    updateScreen('playerName',player.name);
    updateScreen('playerClass',player.className);
    updateScreen('playerHealth',player.health);
-   updateScreen('playerAgi',player.agility);
-   updateScreen('playerInt',player.intelligence);
-   updateScreen('playerStr',player.strength);
+   updateScreen('playerAgi',player.maxAgility);
+   updateScreen('playerInt',player.maxIntelligence);
+   updateScreen('playerStr',player.maxStrength);
    createDeck();
 }
 
 function classCatalyst() {
-  player = new Hero("D", "Catalyst", 30, 3, 10, 3);
+  player = new Hero("D", "Crusher", 30, 3, 3, 3, 3, 3, 3);
    updateScreen('playerName',player.name);
    updateScreen('playerClass',player.className);
    updateScreen('playerHealth',player.health);
-   updateScreen('playerAgi',player.agility);
-   updateScreen('playerInt',player.intelligence);
-   updateScreen('playerStr',player.strength);
+   updateScreen('playerAgi',player.maxAgility);
+   updateScreen('playerInt',player.maxIntelligence);
+   updateScreen('playerStr',player.maxStrength);
 }
 
 function classCretin() {
-  player = new Hero("D", "Cretin", 30, 3, 3, 3);
+  player = new Hero("D", "Crusher", 30, 3, 3, 3, 3, 3, 3);
    updateScreen('playerName',player.name);
    updateScreen('playerClass',player.className);
    updateScreen('playerHealth',player.health);
-   updateScreen('playerAgi',player.agility);
-   updateScreen('playerInt',player.intelligence);
-   updateScreen('playerStr',player.strength);
+   updateScreen('playerAgi',player.maxAgility);
+   updateScreen('playerInt',player.maxIntelligence);
+   updateScreen('playerStr',player.maxStrength);
 }
 
 /*function checkBoss() {
@@ -261,10 +263,10 @@ function disabler(){
 
 function turnTimerStart(){
 document.getElementById("startTurnButton").disabled = true;
-var turnleft = player.intelligence;
+var turnLeft = player.maxIntelligence;
 enabler();
 var turnTimer = setInterval(function(){
-  if(turnleft <= 0){
+  if(turnLeft <= 0){
     clearInterval(turnTimer);
     document.getElementById("turnClock").innerHTML = "Over";
     currentEnemy.attackPlayer();
@@ -273,15 +275,20 @@ var turnTimer = setInterval(function(){
     disabler();
     document.getElementById("startTurnButton").disabled = false;
   } else {
-    document.getElementById("turnClock").innerHTML = turnleft + " seconds";
+    document.getElementById("turnClock").innerHTML = turnLeft + " seconds";
   }
-  turnleft -= 1;
+  turnLeft -= 1;
+  if(currentEnemy.health <= 0){
+    turnLeft -= 100;;
+  }
 }, 1000);
+
+
 }
 
 
 function hitEnemy(){
-  currentEnemy.health -= player.strength * 100;
+  currentEnemy.health -= player.maxStrength * 100;
   updateScreen('enemyHealth',currentEnemy.health);
   endCombatCheck();
 }
@@ -295,7 +302,7 @@ function endCombatCheck(){
   if (currentEnemy.health <= 0)
   {
     disabler();
-    completedRooms+=4;
+    completedRooms++;
     updateScreen('enemyName', " None");
     updateScreen('enemyHealth', " None");
     updateScreen('enemyAttack', " None");
