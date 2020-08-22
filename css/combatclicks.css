@@ -114,6 +114,17 @@ body {
   justify-content: center;
 }
 
+#rewardsSection {
+  display: none;
+  }
+
+#rewardsSelection{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
 #startTurnButtonDisplay{
     display: none;
     text-align: center;

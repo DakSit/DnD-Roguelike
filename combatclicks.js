@@ -18,18 +18,106 @@ class Hero {
 
 }
 
+function createRooms(){
+  const rooms = [{
+      text: 'Stat Increase',
+      titleContent: 'This room lets you increase some of your stats',
+      buttonid: 'statRoom'
+    },
+    {
+      text: 'New Button',
+      titleContent: 'This room lets you choose a new button',
+      buttonid: 'buttonRoom'
+    },
+    {
+      text: 'Healing',
+      titleContent: 'This room heals you to full',
+      buttonid: 'healRoom'
+    }
+  ];
+
+  const roomsContainer = document.getElementById('roomSelection');
+
+/*  deck.forEach((item, i) => {
+  item.id = i + 1;
+}); */
+  rooms.forEach(buttonData => {
+    const button = document.createElement('button');
+    //$( "p" ).last().addClass( "selected" );
+    button.textContent = buttonData.text;
+    button.title = buttonData.titleContent;
+    button.id = buttonData.buttonid;
+    button.classList.add("roomButton");
+    roomsContainer.appendChild(button);
+  });
+  //disabler();
+  document.getElementById("statRoom").addEventListener("click", () => {
+     statRewards();
+     populateEnemies();
+     roomSelected();
+  });
+}
+
+function statRewards(){
+  const statRewardsOptions = [{
+      text: 'Max Strength',
+      titleContent: 'This room lets you increase your strength',
+      buttonid: 'maxStrengthIncrease'
+    },
+    {
+      text: 'Max Agility',
+      titleContent: 'This room lets you increase your agility',
+      buttonid: 'maxAgilityIncrease'
+    },
+    {
+      text: 'Max Intelligence',
+      titleContent: 'This room lets you increase your intelligence',
+      buttonid: 'maxIntelligenceIncrease'
+    }
+  ];
+
+  const rewardsContainer = document.getElementById('rewardsSelection');
+
+/*  deck.forEach((item, i) => {
+  item.id = i + 1;
+}); */
+  statRewardsOptions.forEach(buttonData => {
+    const button = document.createElement('button');
+    //$( "p" ).last().addClass( "selected" );
+    button.textContent = buttonData.text;
+    button.title = buttonData.titleContent;
+    button.id = buttonData.buttonid;
+    button.classList.add("rewardButton");
+    rewardsContainer.appendChild(button);
+  });
+  //disabler();
+  document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
+     increaseStrengthChosen();
+     showRooms();
+  });
+}
+
+function increaseStrengthChosen(){
+  player.maxStrength += 2;
+  updateScreen("playerStr", player.maxStrength);
+}
+
+
 function createDeck(){
   const deck = [{
-      text: 'Big Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit',
-      titleContent: 'Deal 999 damage'
+      text: 'Big Hit',
+      titleContent: 'Deal 999 damage',
+      buttonid: 'bigHit'
     },
     {
       text: 'Big Kick',
-      titleContent: 'Deal 999 damage'
+      titleContent: 'Deal 999 damage',
+      buttonid: 'bigKick'
     },
     {
       text: 'Big Bite',
-      titleContent: 'Deal 999 damage'
+      titleContent: 'Deal 999 damage',
+      buttonid: 'bigBite'
     }
   ];
 
@@ -38,22 +126,20 @@ function createDeck(){
 /*  deck.forEach((item, i) => {
   item.id = i + 1;
 }); */
-var j = 0
   deck.forEach(buttonData => {
     const button = document.createElement('button');
     //$( "p" ).last().addClass( "selected" );
     button.textContent = buttonData.text;
     button.title = buttonData.titleContent;
-    button.id = "button" + j;
-    j++;
+    button.id = buttonData.buttonid;
     button.classList.add("deckButton");
     buttonsContainer.appendChild(button);
     console.log(deck);
   });
   disabler();
-  document.getElementById("button0").addEventListener("click", hitEnemy);
-  document.getElementById("button1").addEventListener("click", hitEnemy);
-  document.getElementById("button2").addEventListener("click", hitEnemy);
+  document.getElementById("bigHit").addEventListener("click", hitEnemy);
+  document.getElementById("bigBite").addEventListener("click", hitEnemy);
+  document.getElementById("bigKick").addEventListener("click", hitEnemy);
 }
   function crusherOne() {
       var r=$('<input/>').attr({
@@ -97,7 +183,6 @@ class Knight extends Enemy {
   }
   }
   displayIntent() {
-    $("#log").show();
     updateScreen('combatlog', "The Knight intends to hit you");
   }
 }
@@ -113,7 +198,6 @@ class Mage extends Enemy {
     }
   }
   displayIntent() {
-    $("#log").show();
     updateScreen('combatlog', "The Knight intends to hit you");
   }
 }
@@ -129,7 +213,6 @@ class Rogue extends Enemy {
   }
 }
   displayIntent() {
-    $("#log").show();
     updateScreen('combatlog', "The Knight intends to hit you");
 
   }
@@ -153,6 +236,8 @@ function classCrusher() {
    updateScreen('playerInt',player.maxIntelligence);
    updateScreen('playerStr',player.maxStrength);
    createDeck();
+   createRooms();
+   showRooms();
 }
 
 function classCatalyst() {
@@ -307,8 +392,7 @@ function endCombatCheck(){
     updateScreen('enemyHealth', " None");
     updateScreen('enemyAttack', " None");
     //$( ".enemyStatsDisplay" ).hide();
-    $( "#roomSelection" ).show();
-    $( "#startTurnButtonDisplay" ).hide();
+    showRewards();
     if (fightingBoss == true)
     {
       $("body").hide();
@@ -347,12 +431,25 @@ $(".optionButton").click(function(){
   $("#roomSection").show();
 });})
 
-$(document).ready(function(){
-$(".roomButton").click(function(){
+function roomSelected(){
   $("#roomSelection").hide();
   $("#startTurnButtonDisplay").show();
   $("#enemyStatsDisplay").show();
-});})
+}
+
+function showRooms(){
+    $("#log").hide();
+    $("#roomSelection").show();
+    $("#rewardsSection").hide();
+    $("#startTurnButtonDisplay").hide();
+    $("#log").hide();
+}
+
+function showRewards(){
+  $("#log").hide();
+  $("#rewardsSection").show();
+  $("#startTurnButtonDisplay").hide();
+}
 
 //Class Button section
 
