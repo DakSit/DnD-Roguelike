@@ -56,6 +56,16 @@ function createRooms(){
      populateEnemies();
      roomSelected();
   });
+  document.getElementById("buttonRoom").addEventListener("click", () => {
+     buttonRewards();
+     populateEnemies();
+     roomSelected();
+  });
+  document.getElementById("healRoom").addEventListener("click", () => {
+     healRewards();
+     populateEnemies();
+     roomSelected();
+  });
 }
 
 function statRewards(){
@@ -89,7 +99,7 @@ function statRewards(){
     arrayRemoval(statRewardsOptions)
   }
 */
-  const rewardsContainer = document.getElementById('rewardsSelection');
+  const statRewardsContainer = document.getElementById('rewardsSelection');
 
 /*  deck.forEach((item, i) => {
   item.id = i + 1;
@@ -101,7 +111,7 @@ function statRewards(){
     button.title = buttonData.titleContent;
     button.id = buttonData.buttonid;
     button.classList.add("rewardButton");
-    rewardsContainer.appendChild(button);
+    statRewardsContainer.appendChild(button);
   });
   console.log(statRewardsOptions);
   //disabler();
@@ -110,6 +120,70 @@ function statRewards(){
      showRooms();
      console.log(statRewardsOptions);
      arrayRemoval(statRewardsOptions, ".rewardButton");
+  });
+}
+
+function buttonRewards(){
+
+  function increaseStrengthChosen(){
+    player.maxStrength += 2;
+    updateScreen("playerStr", player.maxStrength);
+  }
+
+  const buttonRewardsOptions = [{
+      text: 'Max Strength',
+      titleContent: 'This room lets you increase your strength',
+      buttonid: 'maxStrengthIncrease'
+    },
+    {
+      text: 'Max Agility',
+      titleContent: 'This room lets you increase your agility',
+      buttonid: 'maxAgilityIncrease'
+    },
+    {
+      text: 'Max Intelligence',
+      titleContent: 'This room lets you increase your intelligence',
+      buttonid: 'maxIntelligenceIncrease'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    }
+  ];
+
+/*
+  function increaseStrengthChosen(){
+    player.maxStrength += 2;
+    updateScreen("playerStr", player.maxStrength);
+    arrayRemoval(statRewardsOptions)
+  }
+*/
+  const buttonRewardsContainer = document.getElementById('rewardsSelection');
+
+/*  deck.forEach((item, i) => {
+  item.id = i + 1;
+}); */
+  if (buttonRewardsOptions.length > 3)
+  {
+    buttonRewardsOptions.splice(Math.floor(Math.random() * buttonRewardsOptions.length),1);
+  }
+  buttonRewardsOptions.forEach(buttonData => {
+    const button = document.createElement('button');
+    //$( "p" ).last().addClass( "selected" );
+    button.textContent = buttonData.text;
+    button.title = buttonData.titleContent;
+    button.id = buttonData.buttonid;
+    button.classList.add("rewardButton");
+    buttonRewardsContainer.appendChild(button);
+  });
+  console.log(buttonRewardsOptions);
+  //disabler();
+  document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
+     increaseStrengthChosen();
+     showRooms();
+     console.log(buttonRewardsOptions);
+     arrayRemoval(buttonRewardsOptions, ".rewardButton");
   });
 }
 
