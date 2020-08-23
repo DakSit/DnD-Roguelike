@@ -59,6 +59,12 @@ function createRooms(){
 }
 
 function statRewards(){
+
+  function increaseStrengthChosen(){
+    player.maxStrength += 2;
+    updateScreen("playerStr", player.maxStrength);
+  }
+
   const statRewardsOptions = [{
       text: 'Max Strength',
       titleContent: 'This room lets you increase your strength',
@@ -76,6 +82,13 @@ function statRewards(){
     }
   ];
 
+/*
+  function increaseStrengthChosen(){
+    player.maxStrength += 2;
+    updateScreen("playerStr", player.maxStrength);
+    arrayRemoval(statRewardsOptions)
+  }
+*/
   const rewardsContainer = document.getElementById('rewardsSelection');
 
 /*  deck.forEach((item, i) => {
@@ -90,16 +103,28 @@ function statRewards(){
     button.classList.add("rewardButton");
     rewardsContainer.appendChild(button);
   });
+  console.log(statRewardsOptions);
   //disabler();
   document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
      increaseStrengthChosen();
      showRooms();
+     console.log(statRewardsOptions);
+     arrayRemoval(statRewardsOptions, ".rewardButton");
   });
 }
 
-function increaseStrengthChosen(){
-  player.maxStrength += 2;
-  updateScreen("playerStr", player.maxStrength);
+function arrayRemoval(arrayRemoved, classRemoved){
+  //var remover = document.getElementsByClassName(classRemoved);
+  //for (let i = 0; i < classRemoved; i++) {
+  //console.log(remover[i]);
+  $(classRemoved).remove();
+  //remover[i].remove();
+  //alert("Hello!");
+  //}
+  for (let i = 0; i < arrayRemoved.length; i++) {
+  arrayRemoved.pop();
+  }
+
 }
 
 
@@ -134,14 +159,13 @@ function createDeck(){
     button.id = buttonData.buttonid;
     button.classList.add("deckButton");
     buttonsContainer.appendChild(button);
-    console.log(deck);
   });
   disabler();
   document.getElementById("bigHit").addEventListener("click", hitEnemy);
   document.getElementById("bigBite").addEventListener("click", hitEnemy);
   document.getElementById("bigKick").addEventListener("click", hitEnemy);
 }
-  function crusherOne() {
+function crusherOne() {
       var r=$('<input/>').attr({
           type: "button",
           id: "punchButton",
@@ -192,7 +216,7 @@ class Mage extends Enemy {
     if (this.health >= 0)
     {
     player.health -= this.enemyAttack;
-    player.maxIntelligence -= 1;
+    player.maxIntelligence -= this.enemyAttack;
     updateScreen('playerHealth', player.health);
     updateScreen('playerInt', player.maxIntelligence);
     }
@@ -218,8 +242,7 @@ class Rogue extends Enemy {
   }
 }
 
-function updateScreen(id, target)
-{
+function updateScreen(id, target){
   document.getElementById(id).innerHTML = target;
 }
 

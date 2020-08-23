@@ -104,6 +104,12 @@ body {
   height: .5em;
 }
 
+.rewardButton {
+  padding: 2em 2em;
+  margin: 2em;
+  height: .5em;
+}
+
 #roomSection {
   display: none;
   }
