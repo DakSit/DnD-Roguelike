@@ -126,7 +126,12 @@ function buttonRewards(){
     button.classList.add("deckButton");
     deckButtons.appendChild(button);
     disabler();
-    document.getElementById("bigThunderButton").addEventListener("click", bigThunderAction);
+    var element =  document.getElementById('bigThunderButton');
+    if (typeof(element) != 'undefined' && element != null)
+    {
+      document.getElementById("bigThunderButton").addEventListener("click", bigThunderAction);
+    }
+
 
   }
 
@@ -155,6 +160,36 @@ function buttonRewards(){
       text: 'Ghost Rider Ooh Ooh',
       titleContent: 'YO yo whats up homie',
       buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
+    },
+    {
+      text: 'Ghost Rider Ooh Ooh',
+      titleContent: 'YO yo whats up homie',
+      buttonid: 'bingbongbingbong'
     }
   ];
 
@@ -163,10 +198,14 @@ function buttonRewards(){
 /*  deck.forEach((item, i) => {
   item.id = i + 1;
 }); */
+let arrayLength = buttonRewardsOptions.length;
+for (let i = 0; i<arrayLength; i++)
+{
   if (buttonRewardsOptions.length > 3)
   {
     buttonRewardsOptions.splice(Math.floor(Math.random() * buttonRewardsOptions.length),1);
   }
+}
   buttonRewardsOptions.forEach(buttonData => {
     const button = document.createElement('button');
     //$( "p" ).last().addClass( "selected" );
@@ -178,12 +217,13 @@ function buttonRewards(){
   });
   console.log(buttonRewardsOptions);
   //disabler();
-
-  document.getElementById("bigThunder").addEventListener("click", () => {
-     bigThunder();
-     showRooms();
-     arrayRemoval(buttonRewardsOptions, ".rewardButton");
-  });
+  if ($('#bigThunder').length > 0) {
+    document.getElementById("bigThunder").addEventListener("click", () => {
+       bigThunder();
+       showRooms();
+       arrayRemoval(buttonRewardsOptions, ".rewardButton");
+    });
+  }
 }
 
 function arrayRemoval(arrayRemoved, classRemoved){
@@ -194,7 +234,8 @@ function arrayRemoval(arrayRemoved, classRemoved){
   //remover[i].remove();
   //alert("Hello!");
   //}
-  for (let i = 0; i < arrayRemoved.length; i++) {
+  let removedArray = arrayRemoved.length;
+  for (let i = 0; i < removedArray; i++) {
   arrayRemoved.pop();
   }
 
