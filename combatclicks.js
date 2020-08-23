@@ -92,13 +92,6 @@ function statRewards(){
     }
   ];
 
-/*
-  function increaseStrengthChosen(){
-    player.maxStrength += 2;
-    updateScreen("playerStr", player.maxStrength);
-    arrayRemoval(statRewardsOptions)
-  }
-*/
   const statRewardsContainer = document.getElementById('rewardsSelection');
 
 /*  deck.forEach((item, i) => {
@@ -118,22 +111,35 @@ function statRewards(){
   document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
      increaseStrengthChosen();
      showRooms();
-     console.log(statRewardsOptions);
      arrayRemoval(statRewardsOptions, ".rewardButton");
   });
 }
 
 function buttonRewards(){
 
-  function increaseStrengthChosen(){
-    player.maxStrength += 2;
-    updateScreen("playerStr", player.maxStrength);
+  function bigThunder(){
+    const button = document.createElement('button');
+    //$( "p" ).last().addClass( "selected" );
+    button.textContent = "Big Thunder";
+    button.title = "Big Thunder";
+    button.id = "bigThunderButton";
+    button.classList.add("deckButton");
+    deckButtons.appendChild(button);
+    disabler();
+    document.getElementById("bigThunderButton").addEventListener("click", bigThunderAction);
+
+  }
+
+  function bigThunderAction(){
+    currentEnemy.health -= 1;
+    updateScreen("enemyHealth", currentEnemy.health);
+    endCombatCheck();
   }
 
   const buttonRewardsOptions = [{
-      text: 'Max Strength',
-      titleContent: 'This room lets you increase your strength',
-      buttonid: 'maxStrengthIncrease'
+      text: 'Big Thunder',
+      titleContent: 'Big Thunder does damage equal to ten times your strength',
+      buttonid: 'bigThunder'
     },
     {
       text: 'Max Agility',
@@ -152,13 +158,6 @@ function buttonRewards(){
     }
   ];
 
-/*
-  function increaseStrengthChosen(){
-    player.maxStrength += 2;
-    updateScreen("playerStr", player.maxStrength);
-    arrayRemoval(statRewardsOptions)
-  }
-*/
   const buttonRewardsContainer = document.getElementById('rewardsSelection');
 
 /*  deck.forEach((item, i) => {
@@ -179,10 +178,10 @@ function buttonRewards(){
   });
   console.log(buttonRewardsOptions);
   //disabler();
-  document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
-     increaseStrengthChosen();
+
+  document.getElementById("bigThunder").addEventListener("click", () => {
+     bigThunder();
      showRooms();
-     console.log(buttonRewardsOptions);
      arrayRemoval(buttonRewardsOptions, ".rewardButton");
   });
 }
@@ -239,6 +238,7 @@ function createDeck(){
   document.getElementById("bigBite").addEventListener("click", hitEnemy);
   document.getElementById("bigKick").addEventListener("click", hitEnemy);
 }
+
 function crusherOne() {
       var r=$('<input/>').attr({
           type: "button",
