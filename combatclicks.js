@@ -139,7 +139,7 @@ function buttonRewards(){
   function bigThunder(){
     const button = document.createElement('button');
     //$( "p" ).last().addClass( "selected" );
-    button.textContent = "Big Thunder";
+    button.textContent = "Big Thunder deals " + Math.ceil(player.maxStrength * 1.542) + " damage";
     button.title = "Big Thunder";
     button.id = "bigThunderButton";
     button.classList.add("deckButton");
@@ -525,13 +525,13 @@ var turnTimer = setInterval(function(){
     disabler();
     document.getElementById("startTurnButton").disabled = false;
   } else {
-    document.getElementById("turnClock").innerHTML = turnLeft + " seconds";
+    document.getElementById("turnClock").innerHTML = Math.ceil(turnLeft) + " seconds";
   }
-  turnLeft -= 1;
+  turnLeft -= 0.10;
   if(currentEnemy.health <= 0){
-    turnLeft -= 100;;
+    turnLeft -= 100;
   }
-}, 1000);
+}, 100);
 
 
 }
