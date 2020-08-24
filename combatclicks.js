@@ -275,11 +275,22 @@ deck.forEach(buttonData => {
   button.classList.add("deckButton");
   buttonsContainer.appendChild(button);
   //buttonAction(button.id);
-  var buttonfunction = button.id.toString();
+  var buttonfunction = button.id;
   console.log(buttonfunction);
-  document.getElementById(buttonfunction).addEventListener("click", bigHit);
+   document.getElementById(button.id).addEventListener("click", function(){genericCatchAll(button.id)});;
 });
 disabler();
+}
+
+function genericCatchAll(buttonid){
+  switch (buttonid) {
+    case "bigHit":
+    currentEnemy.health -= player.maxStrength * 100;
+    updateScreen('enemyHealth',currentEnemy.health);
+    endCombatCheck();
+    break;
+  }
+
 }
 
 function buttonAction(buttonid){
