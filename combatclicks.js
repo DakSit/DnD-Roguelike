@@ -3,7 +3,25 @@
 var completedRooms = 0;
 var fightingBoss = false;
 const deck = [];
-const entireCardList = [];
+const entireCardList = [{
+    text: 'Big Hit',
+    titleContent: 'Deal 999 damage',
+    buttonid: 'bigHit',
+    numberid: 0
+  },
+  {
+    text: 'Big Kick',
+    titleContent: 'Deal 999 damage',
+    buttonid: 'bigKick',
+    numberid: 1
+  },
+  {
+    text: 'Big Bite',
+    titleContent: 'Deal 999 damage',
+    buttonid: 'bigBite',
+    numberid: 2
+  }
+];
 
 class Hero {
     constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
@@ -108,7 +126,6 @@ function statRewards(){
     button.classList.add("rewardButton");
     statRewardsContainer.appendChild(button);
   });
-  console.log(statRewardsOptions);
   //disabler();
   document.getElementById("maxStrengthIncrease").addEventListener("click", () => {
      increaseStrengthChosen();
@@ -217,7 +234,6 @@ for (let i = 0; i<arrayLength; i++)
     button.classList.add("rewardButton");
     buttonRewardsContainer.appendChild(button);
   });
-  console.log(buttonRewardsOptions);
   //disabler();
   if ($('#bigThunder').length > 0) {
     document.getElementById("bigThunder").addEventListener("click", () => {
@@ -244,31 +260,12 @@ function arrayRemoval(arrayRemoved, classRemoved){
 }
 
 function createDeck(){
-  const entireCardList = [{
-      text: 'Big Hit',
-      titleContent: 'Deal 999 damage',
-      buttonid: 'bigHit',
-      numberid: 0
-    },
-    {
-      text: 'Big Kick',
-      titleContent: 'Deal 999 damage',
-      buttonid: 'bigKick',
-      numberid: 1
-    },
-    {
-      text: 'Big Bite',
-      titleContent: 'Deal 999 damage',
-      buttonid: 'bigBite',
-      numberid: 2
-    }
-  ];
+
 }
 
 function displayDeck(){
 const buttonsContainer = document.getElementById('deckButtons');
 
-function displayDeck(deck){
 deck.forEach(buttonData => {
   const button = document.createElement('button');
   //$( "p" ).last().addClass( "selected" );
@@ -277,18 +274,23 @@ deck.forEach(buttonData => {
   button.id = buttonData.buttonid;
   button.classList.add("deckButton");
   buttonsContainer.appendChild(button);
-  buttonAction(button.id);
+  //buttonAction(button.id);
+  var buttonfunction = button.id.toString();
+  console.log(buttonfunction);
+  document.getElementById(buttonfunction).addEventListener("click", bigHit);
 });
-}
 disabler();
 }
 
 function buttonAction(buttonid){
+  console.log(buttonid);
   var button =  document.getElementById(buttonid);
-  if (typeof(element) != 'undefined' && element != null)
-  {
-    document.getElementById(buttonid).addEventListener("click", (buttonid));
-  }
+  document.getElementById(buttonid).addEventListener("click", buttonid);
+}
+
+function getButtonId() {
+    var value = this.options[this.selectedIndex].value;
+    alert(value);
 }
 
 function bigHit(){
@@ -298,7 +300,8 @@ function bigHit(){
 }
 
 function addButton(buttonAdded){
-  deck.push.apply(entireCardList[buttonAdded]);
+  console.log(entireCardList);
+  deck.push(entireCardList[buttonAdded]);
   entireCardList.splice(buttonAdded, 1);
   console.log(deck);
 }
@@ -399,8 +402,8 @@ function classCrusher() {
    createDeck();
    createRooms();
    showRooms();
-   displayDeck();
    addButton(0);
+   displayDeck();
 }
 
 function classCatalyst() {
