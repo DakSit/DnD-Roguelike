@@ -2,6 +2,8 @@
 
 var completedRooms = 0;
 var fightingBoss = false;
+const deck = [];
+const entireCardList = [];
 
 class Hero {
     constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
@@ -241,43 +243,64 @@ function arrayRemoval(arrayRemoved, classRemoved){
 
 }
 
-
 function createDeck(){
-  const deck = [{
+  const entireCardList = [{
       text: 'Big Hit',
       titleContent: 'Deal 999 damage',
-      buttonid: 'bigHit'
+      buttonid: 'bigHit',
+      numberid: 0
     },
     {
       text: 'Big Kick',
       titleContent: 'Deal 999 damage',
-      buttonid: 'bigKick'
+      buttonid: 'bigKick',
+      numberid: 1
     },
     {
       text: 'Big Bite',
       titleContent: 'Deal 999 damage',
-      buttonid: 'bigBite'
+      buttonid: 'bigBite',
+      numberid: 2
     }
   ];
+}
 
-  const buttonsContainer = document.getElementById('deckButtons');
+function displayDeck(){
+const buttonsContainer = document.getElementById('deckButtons');
 
-/*  deck.forEach((item, i) => {
-  item.id = i + 1;
-}); */
-  deck.forEach(buttonData => {
-    const button = document.createElement('button');
-    //$( "p" ).last().addClass( "selected" );
-    button.textContent = buttonData.text;
-    button.title = buttonData.titleContent;
-    button.id = buttonData.buttonid;
-    button.classList.add("deckButton");
-    buttonsContainer.appendChild(button);
-  });
-  disabler();
-  document.getElementById("bigHit").addEventListener("click", hitEnemy);
-  document.getElementById("bigBite").addEventListener("click", hitEnemy);
-  document.getElementById("bigKick").addEventListener("click", hitEnemy);
+function displayDeck(deck){
+deck.forEach(buttonData => {
+  const button = document.createElement('button');
+  //$( "p" ).last().addClass( "selected" );
+  button.textContent = buttonData.text;
+  button.title = buttonData.titleContent;
+  button.id = buttonData.buttonid;
+  button.classList.add("deckButton");
+  buttonsContainer.appendChild(button);
+  buttonAction(button.id);
+});
+}
+disabler();
+}
+
+function buttonAction(buttonid){
+  var button =  document.getElementById(buttonid);
+  if (typeof(element) != 'undefined' && element != null)
+  {
+    document.getElementById(buttonid).addEventListener("click", (buttonid));
+  }
+}
+
+function bigHit(){
+  currentEnemy.health -= player.maxStrength * 100;
+  updateScreen('enemyHealth',currentEnemy.health);
+  endCombatCheck();
+}
+
+function addButton(buttonAdded){
+  deck.push.apply(entireCardList[buttonAdded]);
+  entireCardList.splice(buttonAdded, 1);
+  console.log(deck);
 }
 
 function crusherOne() {
@@ -376,6 +399,8 @@ function classCrusher() {
    createDeck();
    createRooms();
    showRooms();
+   displayDeck();
+   addButton(0);
 }
 
 function classCatalyst() {
@@ -431,7 +456,6 @@ function classSelection(name){
   else {
     classCretin();
   }
-  displayStats();
 }
 
 function populateEnemies(){
