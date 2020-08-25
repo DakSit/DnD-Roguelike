@@ -131,7 +131,7 @@ body {
 }
 
 
-#startTurnButtonDisplay{
+#startCombatButtonDisplay{
     display: none;
     text-align: center;
 }

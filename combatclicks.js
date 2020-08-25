@@ -112,13 +112,12 @@ function showRooms(){
 function populateRooms(roomOptions){
   const roomsContainer = document.getElementById('roomSelection');
   let arrayLength = roomOptions.length;
-  for (let i = 0; i<arrayLength; i++)
-  {
+  /*for (let i = 0; i<arrayLength; i++){
     if (roomOptions.length > 1)
     {
       roomOptions.splice(Math.floor(Math.random() * roomOptions.length),1);
     }
-  }
+  }*/
   const buttonData = roomOptions[Math.floor(Math.random() * roomOptions.length)];
   const button = document.createElement('button');
         //$( "p" ).last().addClass( "selected" );
@@ -127,7 +126,7 @@ function populateRooms(roomOptions){
       button.id = buttonData.buttonid;
       button.classList.add("roomButton");
       roomsContainer.appendChild(button);
-      $("#rewardButton").on( "click", function(){roomButtonActions(button.id)});
+      document.getElementById(button.id).addEventListener("click",$("#rewardButton").on( "click", function(){roomButtonActions(button.id)}));
       document.getElementById("rewardButton").addEventListener("click", showRooms);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
@@ -204,24 +203,29 @@ function roomButtonActions(buttonid){
 function deckButtonActions(buttonid){
   switch (buttonid) {
     case "bigHit":
-    currentEnemy.health -= player.maxStrength * 1;
+    currentEnemy.health -= player.maxStrength * 10;
     hitEnemy();
     break;
     case "bigThunder":
     currentEnemy.health -= 1;
     hitEnemy();
+    break;
     case "bigBite":
     currentEnemy.enemyAttack -= 10;
     break;
     case "bigTruck":
     currentEnemy.health -= 999;
+    hitEnemy();
+    console.log(player.maxIntelligence);
+    break;
+
   }
 
 }
 
 
 function buttonAction(buttonid){
-    var button =  document.getElementById(buttonid);
+  //var button =  document.getElementById(buttonid);
   document.getElementById(buttonid).addEventListener("click", buttonid);
 }
 
@@ -250,7 +254,7 @@ function updatePlayer() {
 }
 
 function classCrusher() {
-  player = new Hero("D", "Crusher", 40000, 3, 3, 3, 3, 3, 3);
+  player = new Hero("D", "Crusher", 40000, 10, 10, 10, 10, 10, 10);
    updatePlayer();
    addButton(0);
    displayDeck();
@@ -312,14 +316,24 @@ function beginCombat(){
 
 updateEnemy();
 currentEnemy.displayIntent();
-$("#startTurnButtonDisplay").show();
+$("#startCombatButtonDisplay").show();
 $("#roomSection").hide();
+document.getElementById("startCombatButton").disabled = false;
 }
 
 function updateEnemy(){
+  if (currentEnemy.health < 0)
+  {
+    updateScreen('enemyName'," none");
+    updateScreen('enemyHealth'," none");
+    updateScreen('enemyAttack'," none");
+  }
+  else
+  {
   updateScreen('enemyName',currentEnemy.name);
   updateScreen('enemyHealth',currentEnemy.health);
   updateScreen('enemyAttack',currentEnemy.enemyAttack);
+  }
 }
 
 function deckCheck(){
@@ -343,29 +357,32 @@ function disabler(){
   }
 }
 
-function turnTimerStart(){
-document.getElementById("startTurnButton").disabled = true;
-var turnLeft = player.maxIntelligence;
+function combatTimerStart(){
+document.getElementById("startCombatButton").disabled = true;
 enabler();
+var turnLeft = player.maxIntelligence;
 var turnTimer = setInterval(function(){
-  if(turnLeft <= 0){
+  if (turnLeft <= 0){
     clearInterval(turnTimer);
-    document.getElementById("turnClock").innerHTML = "Over";
     currentEnemy.attackPlayer();
-    loseCondition();
     currentEnemy.displayIntent();
-    disabler();
-    document.getElementById("startTurnButton").disabled = false;
+    loseCondition();
+    if (currentEnemy.health >= 0)
+    {
+      combatTimerStart();
+    }
+
+    //document.getElementById("startCombatButton").disabled = false;
   } else {
     document.getElementById("turnClock").innerHTML = Math.ceil(turnLeft) + " seconds";
   }
-  turnLeft -= 0.10;
-  if(currentEnemy.health <= 0){
+  if (currentEnemy.health <= 0)
+  {
     turnLeft -= 100;
+    document.getElementById("turnClock").innerHTML = "Not Started";
   }
+  turnLeft -= 0.10;
 }, 100);
-
-
 }
 
 function hitEnemy(){
@@ -378,9 +395,7 @@ function endCombatCheck(){
   {
     disabler();
     completedRooms++;
-    updateScreen('enemyName', " None");
-    updateScreen('enemyHealth', " None");
-    updateScreen('enemyAttack', " None");
+    updateEnemy();
     //$( ".enemyStatsDisplay" ).hide();
     showRewards();
     if (fightingBoss == true)
@@ -402,7 +417,7 @@ function endCombatCheck(){
 function loseCondition(){
   if (player.health <= 0)
   {
-    var disabler = document.getElementsByClassName("startTurnButton");
+    var disabler = document.getElementsByClassName("startCombatButton");
     for (var i = 0; i < disabler.length; i++) {
         disabler[i].disabled = true;
     }
@@ -423,14 +438,14 @@ $(".optionButton").click(function(){
 
 function roomSelected(){
   $("#roomSelection").hide();
-  $("#startTurnButtonDisplay").show();
+  $("#startCombatButtonDisplay").show();
   $("#enemyStatsDisplay").show();
 }
 
 function showRewards(){
   $("#log").hide();
   $("#rewardsSection").show();
-  $("#startTurnButtonDisplay").hide();
+  $("#startCombatButtonDisplay").hide();
 }
 
 class Enemy {
@@ -468,10 +483,17 @@ class Mage extends Enemy {
   attackPlayer() {
     if (this.health >= 0)
     {
+    if (player.maxIntelligence >= 6)
+    {
     player.health -= this.enemyAttack;
-    player.maxIntelligence -= this.enemyAttack;
-    updateScreen('playerHealth', player.health);
-    updateScreen('playerInt', player.maxIntelligence);
+    player.maxIntelligence -= 4;
+    updatePlayer();
+    }
+    else
+    {
+    player.health -= this.enemyAttack * 2;
+    updatePlayer();
+    }
     }
   }
   displayIntent() {
@@ -483,10 +505,16 @@ class Rogue extends Enemy {
   attackPlayer() {
     if (this.health >= 0)
     {
+      if(player.maxStrength > 9)
+      {
     player.health -= this.enemyAttack;
-    player.maxStrength -= 1;
-    updateScreen('playerHealth', player.health);
-    updateScreen('playerInt', player.maxStrength);
+    player.maxStrength -= 4;
+    updatePlayer();
+      }
+      else {
+        player.health -= this.enemyAttack * 2;
+        updatePlayer();
+      }
   }
 }
   displayIntent() {
