@@ -53,7 +53,6 @@ class Hero {
 function showRooms(){
   $("#rewardsSection").hide();
   $("#roomSection").show();
-//  $("#rewardButton").off();
   const statRewards = [
   {
     text: 'Strength/Intelligence Increase',
@@ -126,18 +125,24 @@ function populateRooms(roomOptions){
       button.id = buttonData.buttonid;
       button.classList.add("roomButton");
       roomsContainer.appendChild(button);
-      console.log(button.id);
       //document.getElementById(button.id).addEventListener("click", ($("#rewardButton").on( "click", function(){roomButtonActions("bigbuttons")})));
       document.getElementById(button.id).addEventListener("click", workOncePlease);
       document.getElementById("rewardButton").addEventListener("click", showRooms);
-      //document.getElementById("rewardButton").addEventListener("click", resetRewards);
+      document.getElementById("rewardButton").addEventListener("click", resetRewards);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
 
       function workOncePlease(){
-        $('rewardButton').on( "click", roomButtonActions(button.id));
+        console.log(button.id);
+        //$('#rewardButton').on( "click", roomButtonActions(button.id));
+        $('#rewardButton').on("click", sayAlert);
+      }
+      function sayAlert(){
+        roomButtonActions(button.id);
+        $('#rewardButton').off();
       }
   }
+
 
 
 
@@ -149,7 +154,7 @@ function populateRooms(roomOptions){
 
 
 function resetRewards(){
-  $("#rewardButton").off();
+//  $("#rewardButton").off();
 }
 
 function displayDeck(){
