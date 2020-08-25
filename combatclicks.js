@@ -26,6 +26,12 @@ const entireCardList = [{
     titleContent: 'Deal 1 damage',
     buttonid: 'bigThunder',
     numberid: 3
+  },
+  {
+    text: 'BEEP BEEP IM A BUS',
+    titleContent: 'Deal 99999999 damage',
+    buttonid: 'bigTruck',
+    numberid: 4
   }
 ];
 
@@ -67,34 +73,34 @@ function showRooms(){
 
   const buttonRewards = [
   {
-      text: 'Strength/Intelligence Increase',
+      text: 'Toughtrucksdontfuck',
       titleContent: 'Increase strength by 2, intelligence by 1',
-      buttonid: 'strengthIntelligenceIncreaseRoomz'
+      buttonid: 'toughtruck'
     },
   {
-  text: 'Strength/Intelligence Increase',
+  text: 'Hey kid, Im a computer',
   titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'strengthIntelligenceIncreaseRoomv'
+  buttonid: 'toughtruck'
 },
   {
-  text: 'Strength/Intelligence Increase',
+  text: 'Imabigbutton',
   titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'strengthIntelligenceIncreaseRoomt'
+  buttonid: 'toughtruck'
 }]
 
   const optionRewards = [
   {
-    text: 'Strength/Intelligence Increase',
+    text: 'Big SPooky Curse',
     titleContent: 'Increase strength by 2, intelligence by 1',
     buttonid: 'strengthIntelligenceIncreaseRoomk'
   },
   {
-    text: 'Strength/Intelligence Increase',
+    text: 'Pantspajamasandmen',
     titleContent: 'Increase strength by 2, intelligence by 1',
     buttonid: 'strengthIntelligenceIncreaseRoomf'
   },
   {
-  text: 'Strength/Intelligence Increase',
+  text: 'Lookoutworld',
   titleContent: 'Increase strength by 2, intelligence by 1',
   buttonid: 'strengthIntelligenceIncreaseRoomx'
   }]
@@ -121,7 +127,7 @@ function populateRooms(roomOptions){
       button.id = buttonData.buttonid;
       button.classList.add("roomButton");
       roomsContainer.appendChild(button);
-            $("#rewardButton").on( "click", function(){roomButtonActions(button.id)});
+      $("#rewardButton").on( "click", function(){roomButtonActions(button.id)});
       document.getElementById("rewardButton").addEventListener("click", showRooms);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
@@ -184,6 +190,13 @@ function roomButtonActions(buttonid){
     player.maxStrength += 5;
     updatePlayer();
     break;
+    case "toughtruck":
+    addButton(4);
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
+    console.log(deck);
+    break;
+
   }
 
 }
@@ -197,6 +210,11 @@ function deckButtonActions(buttonid){
     case "bigThunder":
     currentEnemy.health -= 1;
     hitEnemy();
+    case "bigBite":
+    currentEnemy.enemyAttack -= 10;
+    break;
+    case "bigTruck":
+    currentEnemy.health -= 999;
   }
 
 }
@@ -209,7 +227,7 @@ function buttonAction(buttonid){
 
 function addButton(buttonAdded){
     deck.push(entireCardList[buttonAdded]);
-  entireCardList.splice(buttonAdded, 1);
+  //entireCardList.splice(buttonAdded, 1);
   }
 
 
@@ -232,7 +250,7 @@ function updatePlayer() {
 }
 
 function classCrusher() {
-  player = new Hero("D", "Crusher", 30, 3, 3, 3, 3, 3, 3);
+  player = new Hero("D", "Crusher", 40000, 3, 3, 3, 3, 3, 3);
    updatePlayer();
    addButton(0);
    displayDeck();
@@ -243,11 +261,19 @@ function classCrusher() {
 function classCatalyst() {
   player = new Hero("D", "Crusher", 30, 3, 10, 3, 3, 3, 3);
    updatePlayer();
+   addButton(2);
+   displayDeck();
+   showRooms();
+   $("#roomSection").show();
 }
 
 function classCretin() {
   player = new Hero("D", "Crusher", 30, 3, 15, 3, 3, 3, 3);
    updatePlayer();
+   addButton(1);
+   displayDeck();
+   showRooms();
+   $("#roomSection").show();
 }
 
 function classSelection(name){
