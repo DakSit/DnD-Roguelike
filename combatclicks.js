@@ -130,13 +130,12 @@ function populateRooms(roomOptions){
       //document.getElementById(button.id).addEventListener("click", ($("#rewardButton").on( "click", function(){roomButtonActions("bigbuttons")})));
       document.getElementById(button.id).addEventListener("click", workOncePlease);
       document.getElementById("rewardButton").addEventListener("click", showRooms);
-      document.getElementById("rewardButton").addEventListener("click", resetRewards);
+      //document.getElementById("rewardButton").addEventListener("click", resetRewards);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
 
       function workOncePlease(){
-        $("rewardButton").on( "click" , roomButtonActions(button.id));
-        alert("Fuck you");
+        $('rewardButton').on( "click", roomButtonActions(button.id));
       }
   }
 
