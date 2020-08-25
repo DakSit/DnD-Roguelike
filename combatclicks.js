@@ -53,56 +53,56 @@ class Hero {
 function showRooms(){
   $("#rewardsSection").hide();
   $("#roomSection").show();
-  $("#rewardButton").off();
+//  $("#rewardButton").off();
   const statRewards = [
   {
     text: 'Strength/Intelligence Increase',
     titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthIntelligenceIncreaseRoom'
+    buttonid: 'strengthincrease'
 },
   {
     text: 'Strength/Intelligence Increase',
     titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthIntelligenceIncreaseRoom'
+    buttonid: 'agilityincrease'
   },
   {
     text: 'Strength/Intelligence Increase',
     titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthIntelligenceIncreaseRoom'
+    buttonid: 'intelligenceincrease'
   }]
 
   const buttonRewards = [
   {
       text: 'Toughtrucksdontfuck',
       titleContent: 'Increase strength by 2, intelligence by 1',
-      buttonid: 'toughtruck'
+      buttonid: 'bigbus'
     },
   {
   text: 'Hey kid, Im a computer',
   titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'toughtruck'
+  buttonid: 'bigcar'
 },
   {
   text: 'Imabigbutton',
   titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'toughtruck'
+  buttonid: 'bigtruck'
 }]
 
   const optionRewards = [
   {
     text: 'Big SPooky Curse',
     titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthIntelligenceIncreaseRoomk'
+    buttonid: 'bigbuttons'
   },
   {
     text: 'Pantspajamasandmen',
     titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthIntelligenceIncreaseRoomf'
+    buttonid: 'smallbuttons'
   },
   {
   text: 'Lookoutworld',
   titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'strengthIntelligenceIncreaseRoomx'
+  buttonid: 'mediumbuttons'
   }]
 
   populateRooms(statRewards);
@@ -126,11 +126,21 @@ function populateRooms(roomOptions){
       button.id = buttonData.buttonid;
       button.classList.add("roomButton");
       roomsContainer.appendChild(button);
-      document.getElementById(button.id).addEventListener("click",$("#rewardButton").on( "click", function(){roomButtonActions(button.id)}));
+      console.log(button.id);
+      //document.getElementById(button.id).addEventListener("click", ($("#rewardButton").on( "click", function(){roomButtonActions("bigbuttons")})));
+      document.getElementById(button.id).addEventListener("click", workOncePlease);
       document.getElementById("rewardButton").addEventListener("click", showRooms);
+      document.getElementById("rewardButton").addEventListener("click", resetRewards);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
+
+      function workOncePlease(){
+        $("rewardButton").on( "click" , roomButtonActions(button.id));
+        alert("Fuck you");
+      }
   }
+
+
 
   function clearRooms(){
     classRemoval("roomButton", ".roomButton");
@@ -138,6 +148,10 @@ function populateRooms(roomOptions){
 
 }
 
+
+function resetRewards(){
+  $("#rewardButton").off();
+}
 
 function displayDeck(){
 const buttonsContainer = document.getElementById('deckButtons');
@@ -159,43 +173,63 @@ disabler();
 
 function classRemoval(classRemoved, classRemovedjQuery){
   var remover = document.getElementsByClassName(classRemoved);
-  console.log(remover);
-  $(classRemovedjQuery).remove();
+    $(classRemovedjQuery).remove();
   var remover = document.getElementsByClassName(classRemoved);
-  console.log(remover);
-}
+  }
 
 function arrayRemoval(arrayRemoved, classRemoved){
   var remover = document.getElementsByClassName(classRemoved);
-  console.log(remover);
-  for (let i = 0; i < classRemoved; i++) {
+    for (let i = 0; i < classRemoved; i++) {
   //$(classRemoved).remove();
   //i.parentNode.removeChild(i);
   //remover[i].remove();
   }
 
   let removedArray = arrayRemoved.length;
-  console.log(arrayRemoved);
-  for (let i = 0; i < removedArray; i++) {
+    for (let i = 0; i < removedArray; i++) {
   arrayRemoved.pop();
-  console.log(arrayRemoved);
-  }
+    }
 
 }
 
 function roomButtonActions(buttonid){
   switch (buttonid) {
-    case "strengthIntelligenceIncreaseRoom":
+    case "strengthincrease":
     player.maxStrength += 5;
     updatePlayer();
     break;
-    case "toughtruck":
+    case "agilityincrease":
     addButton(4);
     classRemoval("deckButton", ".deckButton");
     displayDeck();
-    console.log(deck);
     break;
-
+    case "intelligenceinrease":
+    player.maxIntelligence += 5;
+    break;
+    case "bigtruck":
+    addButton(2)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
+    break;
+    case "bigcar":
+    addButton(3)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
+    break;
+    case "bigbus":
+    addButton(1)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
+    break;
+    case "bigbuttons":
+    alert("Fuck you");
+    break;
+    case "mediumbuttons":
+    alert("Fuck me");
+    break;
+    case "smallbuttons":
+    alert("smol");
+    break;
   }
 
 }
@@ -216,8 +250,7 @@ function deckButtonActions(buttonid){
     case "bigTruck":
     currentEnemy.health -= 999;
     hitEnemy();
-    console.log(player.maxIntelligence);
-    break;
+        break;
 
   }
 
