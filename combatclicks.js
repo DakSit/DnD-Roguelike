@@ -241,7 +241,14 @@ function roomButtonActions(buttonid){
 function deckButtonActions(buttonid){
   switch (buttonid) {
     case "bigHit":
-    currentEnemy.health -= player.maxStrength * 10;
+    value = typeof(value) == 'undefined' ? 0 : value;
+    value++
+    if (value >= 10)
+    {
+    currentEnemy.health -= player.maxStrength * 5;
+    value = 0;
+    console.log(value);
+    }
     hitEnemy();
     break;
     case "bigThunder":
