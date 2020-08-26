@@ -15,15 +15,20 @@
       <a href="#" onClick="howToPlay()">How to Play</a>
     </div>
   </header>
-  <div class="startTurnButtonDisplay" id="startTurnButtonDisplay">
-    <button type="button" class="startTurnButton" onClick="turnTimerStart()">Start Turn</button>
+  <div class="log" id="log">
+    <span id="combatlog">0</span>
+  </div>
+  <div class="startCombatButtonDisplay" id="startCombatButtonDisplay">
+    <button type="button" class="startcombatButton" id="startCombatButton" onClick="combatTimerStart()">Start Combat</button>
     <p>Time:<span id="turnClock">Not Started</span></p>
   </div>
   <div class="roomSection" id="roomSection">
     <div class="roomSelection" id="roomSelection">
-      <button type="button" class="roomButton" onClick="populateEnemies()">Room 1</button>
-      <button type="button" class="roomButton" onClick="populateEnemies()">Room 2</button>
-      <button type="button" class="roomButton" onClick="populateEnemies()">Room 3</button>
+      </div>
+  </div>
+  <div class="rewardsSection" id="rewardsSection">
+    <div class="rewardsSelection" id="rewardsSelection">
+      <button type="button" id="rewardButton" class="rewardButton">Reward</button>
     </div>
   </div>
   <div class="combatSection" id="combatSection">
@@ -31,8 +36,7 @@
 
     </div>
   </div>
-  <div class="log" id="log">
-  </div>
+
   <div>
     <div class="characterSelect" id="characterSelect">
       <h2>Choose Your Character
@@ -64,10 +68,8 @@
     </div>
     <div class="deckDisplay" id="deckDisplay">
       <div class="deckButtons" id="deckButtons">
-      <button type="button" class="deckButton" onClick="hitEnemy()" disabled>Button 1</button>
-      <button type="button" class="deckButton" disabled>Button 2</button>
-      <button type="button" class="deckButton" disabled>Button 3</button>
-      <button type="button" class="deckButton" disabled>Button 4</button>
+        <div id="buttons-container"></div>
+      <!---<button type="button" class="deckButton" onClick="hitEnemy()" disabled>Button 1</button>-->
 
       </div>
     </div>
