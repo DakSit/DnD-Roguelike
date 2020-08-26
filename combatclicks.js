@@ -60,6 +60,7 @@ function updateScreen(id, target)
   document.getElementById(id).innerHTML = target;
 }
 
+<<<<<<< Updated upstream
 var Deck = [];
 
 function howToPlay(){
@@ -94,6 +95,48 @@ function classCretin() {
    updateScreen('playerAgi',player.agility);
    updateScreen('playerInt',player.intelligence);
    updateScreen('playerStr',player.strength);
+=======
+function howToPlay(){
+  alert("Welcome! Click a class, click a room, and start clicking!\r\nEvery time you end your turn the foe will go if you haven't defeated it.\r\nStats matter! And so do the buttons you can collect.");
+}
+function updatePlayer() {
+  updateScreen('playerName',player.name);
+  updateScreen('playerClass',player.className);
+  updateScreen('playerHealth',player.health);
+  updateScreen('playerAgi',player.maxAgility);
+  updateScreen('playerInt',player.maxIntelligence);
+  updateScreen('playerStr',player.maxStrength);
+}
+
+function classCrusher() {
+  var heroName = prompt("Enter your name!");
+  player = new Hero(heroName, "Crusher", 40000, 10, 10, 10, 10, 10, 10);
+   updatePlayer();
+   addButton(0);
+   displayDeck();
+   showRooms();
+   $("#roomSection").show();
+}
+
+function classCatalyst() {
+  var heroName = prompt("Enter your name!");
+  player = new Hero(heroName, "Crusher", 30, 3, 10, 3, 3, 3, 3);
+   updatePlayer();
+   addButton(2);
+   displayDeck();
+   showRooms();
+   $("#roomSection").show();
+}
+
+function classCretin() {
+  var heroName = prompt("Enter your name!");
+  player = new Hero(heroName, "Crusher", 30, 3, 15, 3, 3, 3, 3);
+   updatePlayer();
+   addButton(1);
+   displayDeck();
+   showRooms();
+   $("#roomSection").show();
+>>>>>>> Stashed changes
 }
 
 function checkBoss() {
