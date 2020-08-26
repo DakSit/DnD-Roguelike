@@ -299,6 +299,7 @@ function updatePlayer() {
 
 function classCrusher() {
   var heroName = prompt("Enter your name!");
+  heroName = heroName.substr( 0, 10 );
   player = new Hero(heroName, "Crusher", 40000, 10, 10, 10, 10, 10, 10);
    updatePlayer();
    addButton(0);
@@ -309,6 +310,7 @@ function classCrusher() {
 
 function classCatalyst() {
   var heroName = prompt("Enter your name!");
+  heroName = heroName.substr( 0, 10 );
   player = new Hero(heroName, "Crusher", 30, 3, 10, 3, 3, 3, 3);
    updatePlayer();
    addButton(2);
@@ -319,6 +321,7 @@ function classCatalyst() {
 
 function classCretin() {
   var heroName = prompt("Enter your name!");
+  heroName = heroName.substr( 0, 10 );
   player = new Hero(heroName, "Crusher", 30, 3, 15, 3, 3, 3, 3);
    updatePlayer();
    addButton(1);
