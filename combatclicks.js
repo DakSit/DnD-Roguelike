@@ -244,6 +244,7 @@ function deckButtonActions(buttonid){
     case "bigHit":
     //bigHitValue = typeof(bigHitValue) == 'undefined' ? 0 : bigHitValue;
     player.playerShield += 100;
+    currentEnemy.health -= 999;
     updatePlayer();
     hitEnemy();
     break;
