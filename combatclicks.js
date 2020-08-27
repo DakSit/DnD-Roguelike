@@ -36,7 +36,7 @@ const entireCardList = [{
 ];
 
 class Hero {
-    constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
+    constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength, playerShield) {
         this.name = name;
         this.className = className;
         this.health = health;
@@ -46,6 +46,7 @@ class Hero {
         this.currentAgility = currentAgility;
         this.currentStrength = currentStrength;
         this.currentIntelligence = currentIntelligence;
+        this.playerShield = playerShield;
     }
 
 }
@@ -241,18 +242,18 @@ function roomButtonActions(buttonid){
 function deckButtonActions(buttonid){
   switch (buttonid) {
     case "bigHit":
-    value = typeof(value) == 'undefined' ? 0 : value;
-    value++
-    if (value >= 10)
-    {
-    currentEnemy.health -= player.maxStrength * 5;
-    value = 0;
-    console.log(value);
-    }
+    //bigHitValue = typeof(bigHitValue) == 'undefined' ? 0 : bigHitValue;
+    player.playerShield += 100;
+    updatePlayer();
     hitEnemy();
     break;
     case "bigThunder":
+    bigThunderValue = typeof(bigThunderValue) == 'undefined' ? 0 : bigThunderValue;
+    bigThunderValue++;
+    if (bigThunderValue >= 5)
+    {
     currentEnemy.health -= 1;
+    }
     hitEnemy();
     break;
     case "bigBite":
@@ -264,6 +265,7 @@ function deckButtonActions(buttonid){
         break;
 
   }
+
 
 }
 
@@ -295,11 +297,12 @@ function updatePlayer() {
   updateScreen('playerAgi',player.maxAgility);
   updateScreen('playerInt',player.maxIntelligence);
   updateScreen('playerStr',player.maxStrength);
+  updateScreen('playerShield', player.playerShield);
 }
 
 function classCrusher() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Crusher", 40000, 10, 10, 10, 10, 10, 10);
+  player = new Hero(heroName, "Crusher", 40000, 3, 3, 3, 3, 3, 3, 0);
    updatePlayer();
    addButton(0);
    displayDeck();
@@ -309,7 +312,7 @@ function classCrusher() {
 
 function classCatalyst() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Crusher", 30, 3, 10, 3, 3, 3, 3);
+  player = new Hero(heroName, "Catalyst", 30, 3, 10, 3, 3, 3, 3, 0);
    updatePlayer();
    addButton(2);
    displayDeck();
@@ -319,7 +322,7 @@ function classCatalyst() {
 
 function classCretin() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Crusher", 30, 3, 15, 3, 3, 3, 3);
+  player = new Hero(heroName, "Cretin", 30, 3, 15, 3, 3, 3, 3, 0);
    updatePlayer();
    addButton(1);
    displayDeck();
@@ -345,18 +348,18 @@ function beginCombat(){
   if (completedRooms >= 5)
   {
     let enemies = [
-      new Knight("Mega Knight", 10, 5),
+      //new Knight("Mega Knight", 10, 5),
       new Mage("Mega Mage", 5, 50),
-      new Rogue("Mega Big Boy", 15, 25)
+      //new Rogue("Mega Big Boy", 15, 25)
     ];
     fightingBoss = true;
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
   else {
   let enemies = [
-    new Knight("Knight", 10, 5),
+    //new Knight("Knight", 10, 5),
     new Mage("Mage", 5, 10),
-    new Rogue("Rogue", 15, 10)
+    //new Rogue("Rogue", 15, 10)
   ];
   currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
@@ -414,6 +417,7 @@ var turnTimer = setInterval(function(){
     currentEnemy.attackPlayer();
     currentEnemy.displayIntent();
     loseCondition();
+    //removeAllValues();
     if (currentEnemy.health >= 0)
     {
       combatTimerStart();
@@ -445,6 +449,8 @@ function endCombatCheck(){
     updateEnemy();
     //$( ".enemyStatsDisplay" ).hide();
     showRewards();
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
     if (fightingBoss == true)
     {
       $("body").hide();
@@ -502,9 +508,24 @@ class Enemy {
     this.enemyAttack = enemyAttack;
     }
 
+    damagePlayer() {
+      let damage = this.enemyAttack;
+      let currentShield = player.playerShield;
+      player.playerShield -= this.enemyAttack;//damage;
+      damage -= currentShield;
+      if (damage >= 0){
+        player.health -= damage;//damage;
+      }
+      else
+      {
+
+      }
+      updatePlayer();
+    }
+
     attackPlayer() {
-      player.health -= this.enemyAttack;
-      updateScreen('playerHealth',player.health);
+      //damagePlayer();
+      //updatePlayer();
     }
 
     displayIntent() {
@@ -514,7 +535,7 @@ class Enemy {
 
 class Knight extends Enemy {
   attackPlayer() {
-    if (this.health >= 0)
+    if (this.health > 0)
     {
     player.health -= this.enemyAttack;
     this.enemyAttack += this.enemyAttack;
@@ -527,18 +548,18 @@ class Knight extends Enemy {
 }
 
 class Mage extends Enemy {
+
   attackPlayer() {
-    if (this.health >= 0)
+    if (this.health > 0)
     {
     if (player.maxIntelligence >= 6)
     {
-    player.health -= this.enemyAttack;
-    player.maxIntelligence -= 4;
-    updatePlayer();
+    super.damagePlayer();
     }
     else
     {
-    player.health -= this.enemyAttack * 2;
+    super.damagePlayer();
+    super.damagePlayer();
     updatePlayer();
     }
     }
@@ -550,7 +571,7 @@ class Mage extends Enemy {
 
 class Rogue extends Enemy {
   attackPlayer() {
-    if (this.health >= 0)
+    if (this.health > 0)
     {
       if(player.maxStrength > 9)
       {
