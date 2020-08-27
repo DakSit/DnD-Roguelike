@@ -1,5 +1,5 @@
 //var currentEnemy;
-
+var clickCounter = 0;
 var completedRooms = 0;
 var fightingBoss = false;
 const deck = [];
@@ -36,19 +36,30 @@ const entireCardList = [{
 ];
 
 class Hero {
-    constructor(name, className, health, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength, playerShield) {
+    constructor(name, className, health, playerShield, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
         this.name = name;
         this.className = className;
         this.health = health;
+        this.playerShield = playerShield;
         this.maxAgility = maxAgility;
         this.maxIntelligence = maxIntelligence;
         this.maxStrength = maxStrength;
         this.currentAgility = currentAgility;
         this.currentStrength = currentStrength;
         this.currentIntelligence = currentIntelligence;
-        this.playerShield = playerShield;
     }
 
+}
+
+function resetStats(){
+  player.currentStrength = player.maxStrength;
+  player.currentAgility = player.maxAgility;
+  player.currentIntelligence = player.maxIntelligence;
+}
+
+function clickClickButton(){
+  clickCounter++;
+  updateScreen("clickCounter", clickCounter);
 }
 
 function showRooms(){
@@ -399,6 +410,7 @@ function enabler(){
   for (var i = 0; i < enabler.length; i++) {
     enabler[i].disabled = false;
   }
+  document.getElementById("clickButton").disabled = false;
 }
 
 function disabler(){
@@ -406,6 +418,7 @@ function disabler(){
   for (var i = 0; i < disabler.length; i++) {
     disabler[i].disabled = true;
   }
+  document.getElementById("clickButton").disabled = true;
 }
 
 function combatTimerStart(){
@@ -452,6 +465,10 @@ function endCombatCheck(){
     showRewards();
     classRemoval("deckButton", ".deckButton");
     displayDeck();
+    player.playerShield = 0;
+    clickCounter = 0;
+    resetStats();
+    updatePlayer();
     if (fightingBoss == true)
     {
       $("body").hide();
