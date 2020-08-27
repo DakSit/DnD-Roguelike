@@ -41,6 +41,11 @@ body {
   margin: 1em;
 }
 
+.clickButton {
+  padding: 2em 4em;
+  margin: 2em;
+}
+
 #bottomStatsWrapper {
   display: none;
   flex-wrap: wrap;
