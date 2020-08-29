@@ -1,39 +1,9 @@
 //var currentEnemy;
-var clickCounter = 0;
+var clicks = 0;
 var completedRooms = 0;
 var fightingBoss = false;
 const deck = [];
-const entireCardList = [{
-    text: 'Big Hit',
-    titleContent: 'Deal 999 damage',
-    buttonid: 'bigHit',
-    numberid: 0
-  },
-  {
-    text: 'Big Kick',
-    titleContent: 'Deal 999 damage',
-    buttonid: 'bigKick',
-    numberid: 1
-  },
-  {
-    text: 'Big Bite',
-    titleContent: 'Deal 999 damage',
-    buttonid: 'bigBite',
-    numberid: 2
-  },
-  {
-    text: 'Big Thunder',
-    titleContent: 'Deal 1 damage',
-    buttonid: 'bigThunder',
-    numberid: 3
-  },
-  {
-    text: 'BEEP BEEP IM A BUS',
-    titleContent: 'Deal 99999999 damage',
-    buttonid: 'bigTruck',
-    numberid: 4
-  }
-];
+var entireCardList = [];
 
 class Hero {
     constructor(name, className, health, playerShield, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
@@ -51,6 +21,45 @@ class Hero {
 
 }
 
+function createEntireCardList(){
+   entireCardList = [{
+      text: 'Click Cudgel',
+      titleContent: 'Deal 1 damage + ' + getStrength()/3,
+      buttonid: 'clickCudgel',
+      numberid: 0
+    },
+    {
+      text: 'Click CrossGuard',
+      titleContent: 'Gain 1 shield',
+      buttonid: 'clickCrossGuard',
+      numberid: 1
+    },
+    {
+      text: 'Heavy Wallop',
+      titleContent: 'Deal 2 damage + ' + getStrength()/2,
+      buttonid: 'heavyWallop',
+      numberid: 2
+    },
+    {
+      text: 'Auto-Turret',
+      titleContent: 'Deal 1 damage every second for the rest of the turn',
+      buttonid: 'autoTurret',
+      numberid: 3
+    },
+    {
+      text: 'Pocket Sand',
+      titleContent: 'Deal 1 damage',
+      buttonid: 'pocketSand',
+      numberid: 4
+    }
+  ];
+}
+
+function getStrength(){
+  let  playerMax = player.currentStrength;
+  return playerMax;
+}
+
 function resetStats(){
   player.currentStrength = player.maxStrength;
   player.currentAgility = player.maxAgility;
@@ -58,8 +67,8 @@ function resetStats(){
 }
 
 function clickClickButton(){
-  clickCounter++;
-  updateScreen("clickCounter", clickCounter);
+  clicks++;
+  updateScreen("clickCounter", clicks);
 }
 
 function showRooms(){
@@ -252,24 +261,29 @@ function roomButtonActions(buttonid){
 
 function deckButtonActions(buttonid){
   switch (buttonid) {
-    case "bigHit":
+    case "clickCudgel":
     //bigHitValue = typeof(bigHitValue) == 'undefined' ? 0 : bigHitValue;
-    player.playerShield += 100;
-    currentEnemy.health -= 999;
-    updatePlayer();
-    hitEnemy();
-    break;
-    case "bigThunder":
-    bigThunderValue = typeof(bigThunderValue) == 'undefined' ? 0 : bigThunderValue;
-    bigThunderValue++;
-    if (bigThunderValue >= 5)
+    if(clicks >= 5)
     {
-    currentEnemy.health -= 1;
-    }
+    currentEnemy.health -= (1 + (player.currentStrength/3));
     hitEnemy();
+    updateClicks(5);
+    }
     break;
-    case "bigBite":
-    currentEnemy.enemyAttack -= 10;
+    case "clickCrossGuard":
+    if(clicks > 3)
+    {
+      player.playerShield += 1;
+    }
+    break;
+    case "heavyWallop":
+    if(clicks >= 5)
+    {
+    currentEnemy.health -= (2 + (player.currentStrength/2));
+    hitEnemy();
+    updateClicks(5);
+    document.getElementById("heavyWallop").disabled = true;
+    }
     break;
     case "bigTruck":
     currentEnemy.health -= 999;
@@ -281,6 +295,10 @@ function deckButtonActions(buttonid){
 
 }
 
+function updateClicks(numberReduced){
+  clicks -= numberReduced;
+  updateScreen("clickCounter", clicks);
+}
 
 function buttonAction(buttonid){
   //var button =  document.getElementById(buttonid);
@@ -314,9 +332,12 @@ function updatePlayer() {
 
 function classCrusher() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Crusher", 40000, 3, 3, 3, 3, 3, 3, 0);
+  player = new Hero(heroName, "Crusher", 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
+   createEntireCardList();
    addButton(0);
+   addButton(1);
+   addButton(2);
    displayDeck();
    showRooms();
    $("#roomSection").show();
@@ -324,9 +345,11 @@ function classCrusher() {
 
 function classCatalyst() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Catalyst", 30, 3, 10, 3, 3, 3, 3, 0);
+  player = new Hero(heroName, "Catalyst", 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
-   addButton(2);
+   addButton(0);
+   addButton(1);
+   addButton(3);
    displayDeck();
    showRooms();
    $("#roomSection").show();
@@ -334,9 +357,11 @@ function classCatalyst() {
 
 function classCretin() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Cretin", 30, 3, 15, 3, 3, 3, 3, 0);
+  player = new Hero(heroName, "Cretin", 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
    addButton(1);
+   addButton(2);
+   addButton(4);
    displayDeck();
    showRooms();
    $("#roomSection").show();
@@ -370,17 +395,32 @@ function beginCombat(){
   else {
   let enemies = [
     //new Knight("Knight", 10, 5),
-    new Mage("Mage", 5, 10),
+    new Mage("Mage", 5, 1),
     //new Rogue("Rogue", 15, 10)
   ];
   currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
-
+$("#log").show();
 updateEnemy();
+enemyEntry(currentEnemy.name);
 currentEnemy.displayIntent();
 $("#startCombatButtonDisplay").show();
 $("#roomSection").hide();
 document.getElementById("startCombatButton").disabled = false;
+}
+
+function enemyEntry(enemyName){
+  switch (enemyName) {
+    case "Mage":
+    break;
+}
+}
+
+function enemyExit(enemyName){
+  switch (enemyName) {
+    case "Mage":
+    break;
+}
 }
 
 function updateEnemy(){
@@ -424,13 +464,15 @@ function disabler(){
 function combatTimerStart(){
 document.getElementById("startCombatButton").disabled = true;
 enabler();
-var turnLeft = player.maxIntelligence;
+var turnLeft = player.maxIntelligence + 5;
 var turnTimer = setInterval(function(){
   if (turnLeft <= 0){
     clearInterval(turnTimer);
     currentEnemy.attackPlayer();
     currentEnemy.displayIntent();
     loseCondition();
+    clicks = 0;
+    updateClicks(0);
     //removeAllValues();
     if (currentEnemy.health >= 0)
     {
@@ -463,6 +505,7 @@ function endCombatCheck(){
     updateEnemy();
     //$( ".enemyStatsDisplay" ).hide();
     showRewards();
+    enemyExit(currentEnemy.name);
     classRemoval("deckButton", ".deckButton");
     displayDeck();
     player.playerShield = 0;
@@ -529,8 +572,11 @@ class Enemy {
     damagePlayer() {
       let damage = this.enemyAttack;
       let currentShield = player.playerShield;
+      if (player.playerShield > 0)
+      {
       player.playerShield -= this.enemyAttack;//damage;
       damage -= currentShield;
+      }
       if (damage >= 0){
         player.health -= damage;//damage;
       }

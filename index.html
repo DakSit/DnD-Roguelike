@@ -21,10 +21,6 @@
   <div class="startCombatButtonDisplay" id="startCombatButtonDisplay">
     <button type="button" class="startcombatButton" id="startCombatButton" onClick="combatTimerStart()">Start Combat</button>
     <p>Time:<span id="turnClock">Not Started</span></p>
-    <div class="clickButtonSection" id="clickButtonSection">
-      <button type="button" class="clickButton" id="clickButton" onClick="clickClickButton()">CLICK ME</button>
-      <p>Clicks:<span id="clickCounter">0</span></p>
-    </div>
   </div>
   <div class="roomSection" id="roomSection">
     <div class="roomSelection" id="roomSelection">
@@ -70,6 +66,10 @@
         <p>Intelligence:<span id="playerInt">0</span></p>
         <p>Strength:<span id="playerStr">0</span></p>
       </div>
+    </div>
+    <div class="clickButtonSection" id="clickButtonSection">
+      <p>Clicks:<span id="clickCounter">0</span></p>
+      <button type="button" class="clickButton" id="clickButton" onClick="clickClickButton()">CLICK ME</button>
     </div>
     <div class="deckDisplay" id="deckDisplay">
       <div class="deckButtons" id="deckButtons">
