@@ -42,6 +42,7 @@ body {
 }
 
 .clickButton {
+  justify-content: center;
   padding: 2em 4em;
   margin: 2em;
 }
@@ -60,11 +61,23 @@ body {
 
 #clickButtonSection {
   justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
+#clickCounter{
+  justify-content: center;
+  display: flex;
+}
+
+#clickCounterNumber{
+  justify-content: center;
+  display: flex;
+}
 
 #characterStats {
   display: flex;
+  justify-content: center;
   border: 8px solid #000;
   margin: 0;
   padding: 1em 1em;
@@ -139,6 +152,8 @@ body {
   justify-content: center;
 }
 
+
+
 #rewardsSection {
   display: none;
   }
@@ -155,10 +170,11 @@ body {
     text-align: center;
 }
 
-#characterSelect{
+#characterSelect {
   text-align: center;
   display: flex;
   flex-direction: column;
+}
 
 .hidden {
   display: none;

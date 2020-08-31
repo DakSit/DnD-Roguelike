@@ -35,13 +35,13 @@ function createEntireCardList(){
       numberid: 1
     },
     {
-      text: 'Heavy Wallop',
-      titleContent: 'Deal 2 damage + ' + getStrength()/2,
+      text: 'Heavy Wallop' + '\r\n' + (5 - player.currentAgility),
+      titleContent: 'Deal ' + (player.currentStrength + 1) + '\r\nClick Cost: ' + (5 - player.currentAgility),
       buttonid: 'heavyWallop',
       numberid: 2
     },
     {
-      text: 'Auto-Turret',
+      text: 'Auto Turret',
       titleContent: 'Deal 1 damage every second for the rest of the turn',
       buttonid: 'autoTurret',
       numberid: 3
@@ -285,10 +285,24 @@ function deckButtonActions(buttonid){
     document.getElementById("heavyWallop").disabled = true;
     }
     break;
-    case "bigTruck":
-    currentEnemy.health -= 999;
-    hitEnemy();
-        break;
+    case "autoTurret":
+    if (clicks >= 5)
+    {
+      updateClicks(5);
+      var turnLeft = player.maxIntelligence + 5;
+      var turnTimer = setInterval(function(){
+      if (turnLeft <= 0){
+        clearInterval(turnTimer);
+      }
+      else {
+        currentEnemy.health -= (1 + (player.currentStrength/4));
+
+        hitEnemy();
+        }
+      turnLeft -= 1;
+    }, 1000);
+    }
+    break;
 
   }
 
@@ -347,6 +361,7 @@ function classCatalyst() {
   var heroName = prompt("Enter your name!");
   player = new Hero(heroName, "Catalyst", 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
+   createEntireCardList();
    addButton(0);
    addButton(1);
    addButton(3);
@@ -359,6 +374,7 @@ function classCretin() {
   var heroName = prompt("Enter your name!");
   player = new Hero(heroName, "Cretin", 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
+   createEntireCardList();
    addButton(1);
    addButton(2);
    addButton(4);
@@ -471,10 +487,9 @@ var turnTimer = setInterval(function(){
     currentEnemy.attackPlayer();
     currentEnemy.displayIntent();
     loseCondition();
-    clicks = 0;
     updateClicks(0);
     //removeAllValues();
-    if (currentEnemy.health >= 0)
+    if (currentEnemy.health > 0)
     {
       combatTimerStart();
     }
@@ -482,14 +497,17 @@ var turnTimer = setInterval(function(){
     //document.getElementById("startCombatButton").disabled = false;
   } else {
     document.getElementById("turnClock").innerHTML = Math.ceil(turnLeft) + " seconds";
+    clicks+=1;
+    updateScreen("clickCounter", Math.ceil(clicks));
   }
   if (currentEnemy.health <= 0)
   {
     turnLeft -= 100;
     document.getElementById("turnClock").innerHTML = "Not Started";
+    clicks = 0;
   }
-  turnLeft -= 0.10;
-}, 100);
+  turnLeft -= 1;
+}, 1000);
 }
 
 function hitEnemy(){
