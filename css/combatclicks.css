@@ -3,6 +3,11 @@ body {
     margin: 0;
 }
 
+#roomText {
+  display: flex;
+  justify-content: center;
+}
+
 .topnav {
   overflow: hidden;
   font-family: 'Lato';
@@ -144,6 +149,7 @@ body {
 
 #roomSection {
   display: none;
+  justify-content: center;
   }
 
 #roomSelection{

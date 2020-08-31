@@ -1,15 +1,17 @@
 //var currentEnemy;
 var clicks = 0;
+var baseShield = 0;
 var completedRooms = 0;
 var fightingBoss = false;
 const deck = [];
 var entireCardList = [];
 
 class Hero {
-    constructor(name, className, health, playerShield, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
+    constructor(name, className, maxHealth, currentHealth, playerShield, maxAgility, maxIntelligence, maxStrength, currentAgility, currentIntelligence, currentStrength) {
         this.name = name;
         this.className = className;
-        this.health = health;
+        this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
         this.playerShield = playerShield;
         this.maxAgility = maxAgility;
         this.maxIntelligence = maxIntelligence;
@@ -22,37 +24,85 @@ class Hero {
 }
 
 function createEntireCardList(){
-   entireCardList = [{
-      text: 'Click Cudgel',
-      titleContent: 'Deal 1 damage + ' + getStrength()/3,
-      buttonid: 'clickCudgel',
-      numberid: 0
-    },
-    {
-      text: 'Click CrossGuard',
-      titleContent: 'Gain 1 shield',
-      buttonid: 'clickCrossGuard',
-      numberid: 1
-    },
-    {
-      text: 'Heavy Wallop' + '\r\n' + (5 - player.currentAgility),
-      titleContent: 'Deal ' + (player.currentStrength + 1) + '\r\nClick Cost: ' + (5 - player.currentAgility),
-      buttonid: 'heavyWallop',
-      numberid: 2
-    },
-    {
-      text: 'Auto Turret',
-      titleContent: 'Deal 1 damage every second for the rest of the turn',
-      buttonid: 'autoTurret',
-      numberid: 3
-    },
-    {
-      text: 'Pocket Sand',
-      titleContent: 'Deal 1 damage',
-      buttonid: 'pocketSand',
-      numberid: 4
-    }
-  ];
+  entireCardList = [{
+     text: 'Click Cudgel',
+     titleContent: 'Deal ' + (player.currentStrength + 1) + ' damage' + '\r\nClick Cost: 2',
+     buttonid: 'clickCudgel',
+     numberid: 0
+   },
+   {
+     text: 'Click CrossGuard',
+     titleContent: 'Gain 1 shield' + '\r\nClick Cost: 2',
+     buttonid: 'clickCrossGuard',
+     numberid: 1
+   },
+   {
+     text: 'Heavy Wallop',
+     titleContent: 'Deal ' + ((player.currentStrength * 2) + 2) + ' damage' + '\r\nClick Cost: 2' + '\r\nOnce Per Turn',
+     buttonid: 'heavyWallop',
+     numberid: 2
+   },
+   {
+     text: 'Auto Turret',
+     titleContent: 'Deal 1 damage every second for a turn\'s worth of time' + '\r\nClick Cost: 3',
+     buttonid: 'autoTurret',
+     numberid: 3
+   },
+   {
+     text: 'Pocket Sand',
+     titleContent: 'Deal 1 damage'+ '\r\nClick Cost: 1',
+     buttonid: 'pocketSand',
+     numberid: 4
+   },
+   {
+     text: 'Gift Package',
+     titleContent: 'Gain clicks equal to your intelligence'+ '\r\nOnce Per Turn',
+     buttonid: 'giftPackage',
+     numberid: 5
+   },
+   {
+     text: 'Flex Muscles',
+     titleContent: 'Gain 1 strength for this fight'+ '\r\nClick Cost: 3',
+     buttonid: 'flexMuscles',
+     numberid: 6
+   },
+   {
+     text: 'Flex Mind',
+     titleContent: 'Gain 1 intelligence for this fight'+ '\r\nClick Cost: 3',
+     buttonid: 'flexMind',
+     numberid: 7
+   },
+   {
+   text: 'Flex Momentum',
+     titleContent: 'Gain 1 agility for this fight'+ '\r\nClick Cost: 3',
+     buttonid: 'flexMomentum',
+     numberid: 8
+   },
+   {
+     text: 'Adrenaline Rush',
+     titleContent: 'Double your strength for a turn\'s worth' + '\r\nClick Cost: 3' + '\r\nOnce Per Turn',
+     buttonid: 'adrenalineRush',
+     numberid: 9
+   },
+   {
+     text: 'Massive Mallet',
+     titleContent: 'Deal ' + ((player.currentStrength * 3) + 3) + ' damage' + '\r\nClick Cost: 10' + '\r\nOnce Per Turn',
+     buttonid: 'massiveMallet',
+     numberid: 10
+   },
+   {
+     text: 'Good Boy Shield',
+     titleContent: 'Gain 3 shield' + '\r\nClick Cost: 1' + '\r\nOnce Per Turn',
+     buttonid: 'goodBoyShield',
+     numberid: 11
+   },
+   {
+     text: 'Good Boy Sword',
+     titleContent: 'Deal ' + ((player.currentStrength * 2) + 2) + '\r\nClick Cost: 1' + '\r\nOnce Per Turn',
+     buttonid: 'goodBoyShield',
+     numberid: 11
+   }
+ ];
 }
 
 function getStrength(){
@@ -64,6 +114,7 @@ function resetStats(){
   player.currentStrength = player.maxStrength;
   player.currentAgility = player.maxAgility;
   player.currentIntelligence = player.maxIntelligence;
+  updatePlayer();
 }
 
 function clickClickButton(){
@@ -76,58 +127,105 @@ function showRooms(){
   $("#roomSection").show();
   const statRewards = [
   {
-    text: 'Strength/Intelligence Increase',
-    titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'strengthincrease'
-},
-  {
-    text: 'Strength/Intelligence Increase',
-    titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'agilityincrease'
+    text: 'Strength Increase',
+    titleContent: 'Increase strength by 2',
+    buttonid: 'strengthIncrease'
   },
   {
-    text: 'Strength/Intelligence Increase',
-    titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'intelligenceincrease'
-  }]
+    text: 'Intelligence Increase',
+    titleContent: 'Increase intelligence by 2',
+    buttonid: 'intelligenceIncrease'
+  },
+  {
+    text: 'Agility Increase',
+    titleContent: 'Increase Agility by 2',
+    buttonid: 'agilityIncrease'
+  },
+  {
+    text: 'Strength Intelligence Increase',
+    titleContent: 'Increase intelligence and strength by 1',
+    buttonid: 'strengthIntelligenceIncrease'
+  },
+  {
+    text: 'Strength Agility Increase',
+    titleContent: 'Increase agility and strength by 1',
+    buttonid: 'strengthAgilityIncrease'
+  },
+  {
+    text: 'Agility Intelligence Increase',
+    titleContent: 'Increase agility and intelligence by 1',
+    buttonid: 'agilityIntelligenceIncrease'
+  },
+  {
+    text: 'Max HP Increase',
+    titleContent: 'Increase max and current HP by 10',
+    buttonid: 'maxHPIncrease'
+  },
+  {
+    text: 'Max HP and Strength Increase',
+    titleContent: 'Increase max and current HP by 5, and strength by 1',
+    buttonid: 'strengthHPIncrease'
+  },
+  {
+    text: 'Max HP and Agility Increase',
+    titleContent: 'Increase max and current HP by 5, and agility by 1',
+    buttonid: 'agilityHPIncrease'
+  },
+  {
+    text: 'Max HP and Intelligence Increase',
+    titleContent: 'Increase max and current HP by 5, and intelligence by 1',
+    buttonid: 'intelligenceHPIncrease'
+  },
+  ]
 
   const buttonRewards = [
-  {
-      text: 'Toughtrucksdontfuck',
-      titleContent: 'Increase strength by 2, intelligence by 1',
-      buttonid: 'bigbus'
+    {
+      text: 'Gift Package Button',
+      titleContent: 'Gain a button that gives you free clicks every turn',
+      buttonid: 'giftPackage'
     },
-  {
-  text: 'Hey kid, Im a computer',
-  titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'bigcar'
-},
-  {
-  text: 'Imabigbutton',
-  titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'bigtruck'
-}]
+    {
+        text: 'Flex Muscle Button',
+        titleContent: 'Gain a button that makes you stronger for the combat every time you click it',
+        buttonid: 'flexMuscles'
+      },
+    {
+          text: 'Flex Mind Button',
+          titleContent: 'Gain a button that makes you smarter for the combat every time you click it',
+          buttonid: 'flexMind'
+      },
+    {
+          text: 'Flex Momentum Button',
+          titleContent: 'Gain a button that makes you faster for the combat every time you click it',
+          buttonid: 'flexMomentum'
+      },
+    {
+          text: 'Adrenaline Rush Button',
+          titleContent: 'Gain a button that doubles your strength for a turn time',
+          buttonid: 'adrenalineRush'
+    },
+    {
+            text: 'Good Boy Shield Button',
+            titleContent: 'Gain a button that gives you a shield for very little cost',
+            buttonid: 'goodBoyShield'
+    },
+    {
+      text: 'Good Boy Sword Button',
+      titleContent: 'Gain a button that does damage for very little cost',
+      buttonid: 'goodBoySword'
+    },
+      {
+        text: 'Massive Mallet Button',
+        titleContent: 'Gain a button that does very high damage with strength at a massive cost of clicks',
+        buttonid: 'massiveMallet'
+      }
+]
 
-  const optionRewards = [
-  {
-    text: 'Big SPooky Curse',
-    titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'bigbuttons'
-  },
-  {
-    text: 'Pantspajamasandmen',
-    titleContent: 'Increase strength by 2, intelligence by 1',
-    buttonid: 'smallbuttons'
-  },
-  {
-  text: 'Lookoutworld',
-  titleContent: 'Increase strength by 2, intelligence by 1',
-  buttonid: 'mediumbuttons'
-  }]
+//Put third rewards option with a mixture of both that's evenly balanced
 
-  populateRooms(statRewards);
   populateRooms(buttonRewards);
-  populateRooms(optionRewards);
+  populateRooms(statRewards);
+  //populateRooms(optionRewards);
 
 function populateRooms(roomOptions){
   const roomsContainer = document.getElementById('roomSelection');
@@ -149,6 +247,8 @@ function populateRooms(roomOptions){
       //document.getElementById(button.id).addEventListener("click", ($("#rewardButton").on( "click", function(){roomButtonActions("bigbuttons")})));
       document.getElementById(button.id).addEventListener("click", workOncePlease);
       document.getElementById("rewardButton").addEventListener("click", showRooms);
+      document.getElementById("rewardButton").addEventListener("click", resetStats);
+      document.getElementById("rewardButton").addEventListener("click", updatePlayer);
       document.getElementById("rewardButton").addEventListener("click", resetRewards);
       document.getElementById(button.id).addEventListener("click", beginCombat);
       document.getElementById(button.id).addEventListener("click", clearRooms);
@@ -156,9 +256,9 @@ function populateRooms(roomOptions){
       function workOncePlease(){
         console.log(button.id);
         //$('#rewardButton').on( "click", roomButtonActions(button.id));
-        $('#rewardButton').on("click", sayAlert);
+        $('#rewardButton').on("click", activateRoom);
       }
-      function sayAlert(){
+      function activateRoom(){
         roomButtonActions(button.id);
         $('#rewardButton').off();
       }
@@ -175,6 +275,7 @@ function populateRooms(roomOptions){
 
 
 function resetRewards(){
+  updatePlayer();
 //  $("#rewardButton").off();
 }
 
@@ -219,41 +320,95 @@ function arrayRemoval(arrayRemoved, classRemoved){
 
 function roomButtonActions(buttonid){
   switch (buttonid) {
-    case "strengthincrease":
-    player.maxStrength += 5;
-    updatePlayer();
+    case "strengthIncrease":
+    player.maxStrength += 2;
+    resetStats();
     break;
-    case "agilityincrease":
-    addButton(4);
+    case "agilityIncrease":
+    player.maxAgility += 2;
+    resetStats();
+    break;
+    case "intelligenceIncrease":
+    player.maxIntelligence += 2;
+    resetStats();
+    break;
+    case "strengthIntelligenceIncrease":
+    player.maxIntelligence += 1;
+    player.maxStrength += 1;
+    resetStats();
+    break;
+    case "agilityIntelligenceIncrease":
+    player.maxAgility++;
+    player.maxIntelligence++;
+    resetStats();
+    break;
+    case "strengthAgilityIncrease":
+    player.maxStrength++;
+    player.maxAgility++;
+    resetStats();
+    break;
+    case "maxHPIncrease":
+    player.maxHealth += 10;
+    player.currentHealth += 10;
+    resetStats();
+    break;
+    case "strengthHPIncrease":
+    player.maxStrength++;
+    player.maxHealth += 5;
+    player.currentHealth += 5;
+    resetStats();
+    break;
+    case "agilityHPIncrease":
+    player.maxAgility += 1;
+    player.maxHealth += 5;
+    player.currentHealth += 5;
+    resetStats();
+    break;
+    case "intelligenceHPIncrease":
+    player.maxIntelligence++;
+    player.maxHealth += 5;
+    player.currentHealth += 5;
+    resetStats();
+    break;
+    case "giftPackage":
+    addButton(5)
     classRemoval("deckButton", ".deckButton");
     displayDeck();
     break;
-    case "intelligenceinrease":
-    player.maxIntelligence += 5;
-    break;
-    case "bigtruck":
-    addButton(2)
+    case "flexMuscles":
+    addButton(6)
     classRemoval("deckButton", ".deckButton");
     displayDeck();
     break;
-    case "bigcar":
-    addButton(3)
+    case "flexMind":
+    addButton(7)
     classRemoval("deckButton", ".deckButton");
     displayDeck();
     break;
-    case "bigbus":
-    addButton(1)
+    case "flexMomentum":
+    addButton(8)
     classRemoval("deckButton", ".deckButton");
     displayDeck();
     break;
-    case "bigbuttons":
-    alert("Fuck you");
+    case "adrenalineRush":
+    addButton(9)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
     break;
-    case "mediumbuttons":
-    alert("Fuck me");
+    case "massiveMallet":
+    addButton(10)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
     break;
-    case "smallbuttons":
-    alert("smol");
+    case "goodBoyShield":
+    addButton(11)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
+    break;
+    case "goodBoySword":
+    addButton(12)
+    classRemoval("deckButton", ".deckButton");
+    displayDeck();
     break;
   }
 
@@ -262,34 +417,35 @@ function roomButtonActions(buttonid){
 function deckButtonActions(buttonid){
   switch (buttonid) {
     case "clickCudgel":
-    //bigHitValue = typeof(bigHitValue) == 'undefined' ? 0 : bigHitValue;
-    if(clicks >= 5)
+    if(clicks >= 2)
     {
-    currentEnemy.health -= (1 + (player.currentStrength/3));
+    currentEnemy.health -= (999 + (player.currentStrength));
     hitEnemy();
-    updateClicks(5);
+    updateClicks(2);
     }
     break;
-    case "clickCrossGuard":
-    if(clicks > 3)
+case "clickCrossGuard":
+    if(clicks > 2)
     {
       player.playerShield += 1;
+      updatePlayer();
+      updateClicks(2);
     }
     break;
-    case "heavyWallop":
-    if(clicks >= 5)
+case "heavyWallop":
+    if(clicks >= 2)
     {
-    currentEnemy.health -= (2 + (player.currentStrength/2));
+    currentEnemy.health -= (2 + (player.currentStrength * 2));
     hitEnemy();
-    updateClicks(5);
+    updateClicks(2);
     document.getElementById("heavyWallop").disabled = true;
     }
     break;
-    case "autoTurret":
+case "autoTurret":
     if (clicks >= 5)
     {
       updateClicks(5);
-      var turnLeft = player.maxIntelligence + 5;
+      var turnLeft = player.currentIntelligence + 5;
       var turnTimer = setInterval(function(){
       if (turnLeft <= 0){
         clearInterval(turnTimer);
@@ -303,7 +459,89 @@ function deckButtonActions(buttonid){
     }, 1000);
     }
     break;
+case "pocketSand":
+    if(clicks >= 1)
+    {
+    currentEnemy.health -= (1);
+    hitEnemy();
+    updateClicks(1);
+    }
+    break;
+case "giftPackage":
+    clicks += (2 + player.currentIntelligence);
+    updateClicks(0);
+    document.getElementById("giftPackage").disabled = true;
+    break;
+case "flexMuscles":
+    if(clicks >= 3)
+    {
+    player.currentStrength += 1;
+    updatePlayer();
+    updateClicks(3);
+    }
+    break;
+case "flexMind":
+    if(clicks >= 3)
+    {
+    player.currentIntelligence += 1;
+    updatePlayer();
+    updateClicks(3);
+    }
+    break;
+case "flexMomentum":
+    if(clicks >= 3)
+    {
+    player.currentAgility += 1;
+    updatePlayer();
+    updateClicks(3);
+    }
+    break;
+case "adrenalineRush":
+    if(clicks >= 3)
+    {
+    var turnLeft = player.currentIntelligence + 5;
+    player.currentStrength = (player.currentStrength * 2);
+    document.getElementById("adrenalineRush").disabled = true;
+    updatePlayer();
+    var turnTimer = setInterval(function(){
+    if (turnLeft <= 0){
+        clearInterval(turnTimer);
+        player.currentStrength = (player.currentStrength / 2);
+        updatePlayer();
+    }
+    else {
 
+    }
+    turnLeft -= 1;
+    }, 1000);
+    }
+    break;
+case "goodBoySword":
+    if (clicks >= 1)
+    {
+    currentEnemy.health -= (2 + (player.currentStrength * 2));
+    hitEnemy();
+    updateClicks(1);
+    document.getElementById("goodBoySword").disabled = true;
+    }
+    break;
+case "goodBoyShield":
+    if(clicks >= 1)
+    {
+    player.playerShield += 3;
+    updateClicks(1);
+    updatePlayer();
+    document.getElementById("goodBoyShield").disabled = true;
+    }
+    break;
+case "massiveMallet":
+  if(clicks >= 10)
+  {
+    currentEnemy.health -= (3 + (player.currentStrength * 3));
+    hitEnemy();
+    updateClicks(10);
+  }
+  break;
   }
 
 
@@ -325,7 +563,6 @@ function addButton(buttonAdded){
   }
 
 
-
 function updateScreen(id, target){
   document.getElementById(id).innerHTML = target;
 }
@@ -337,16 +574,16 @@ function howToPlay(){
 function updatePlayer() {
   updateScreen('playerName',player.name);
   updateScreen('playerClass',player.className);
-  updateScreen('playerHealth',player.health);
-  updateScreen('playerAgi',player.maxAgility);
-  updateScreen('playerInt',player.maxIntelligence);
-  updateScreen('playerStr',player.maxStrength);
+  updateScreen('playerHealth',player.currentHealth);
+  updateScreen('playerAgi',player.currentAgility);
+  updateScreen('playerInt',player.currentIntelligence);
+  updateScreen('playerStr',player.currentStrength);
   updateScreen('playerShield', player.playerShield);
 }
 
 function classCrusher() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Crusher", 10, 0, 0, 0, 0, 0, 0, 0);
+  player = new Hero(heroName, "Crusher", 10,10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
    createEntireCardList();
    addButton(0);
@@ -359,7 +596,7 @@ function classCrusher() {
 
 function classCatalyst() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Catalyst", 10, 0, 0, 0, 0, 0, 0, 0);
+  player = new Hero(heroName, "Catalyst", 10, 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
    createEntireCardList();
    addButton(0);
@@ -372,7 +609,7 @@ function classCatalyst() {
 
 function classCretin() {
   var heroName = prompt("Enter your name!");
-  player = new Hero(heroName, "Cretin", 10, 0, 0, 0, 0, 0, 0, 0);
+  player = new Hero(heroName, "Cretin", 10, 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
    createEntireCardList();
    addButton(1);
@@ -398,7 +635,7 @@ function classSelection(name){
 }
 
 function beginCombat(){
-  if (completedRooms >= 5)
+  if (completedRooms >= 50)
   {
     let enemies = [
       //new Knight("Mega Knight", 10, 5),
@@ -478,9 +715,12 @@ function disabler(){
 }
 
 function combatTimerStart(){
+updatePlayer();
+clicks += (5 + (player.currentAgility));
+updateClicks(0);
 document.getElementById("startCombatButton").disabled = true;
 enabler();
-var turnLeft = player.maxIntelligence + 5;
+var turnLeft = player.currentIntelligence + 5;
 var turnTimer = setInterval(function(){
   if (turnLeft <= 0){
     clearInterval(turnTimer);
@@ -497,7 +737,6 @@ var turnTimer = setInterval(function(){
     //document.getElementById("startCombatButton").disabled = false;
   } else {
     document.getElementById("turnClock").innerHTML = Math.ceil(turnLeft) + " seconds";
-    clicks+=1;
     updateScreen("clickCounter", Math.ceil(clicks));
   }
   if (currentEnemy.health <= 0)
@@ -526,7 +765,7 @@ function endCombatCheck(){
     enemyExit(currentEnemy.name);
     classRemoval("deckButton", ".deckButton");
     displayDeck();
-    player.playerShield = 0;
+    player.playerShield = baseShield;
     clickCounter = 0;
     resetStats();
     updatePlayer();
@@ -547,7 +786,7 @@ function endCombatCheck(){
 }
 
 function loseCondition(){
-  if (player.health <= 0)
+  if (player.currentHealth <= 0)
   {
     var disabler = document.getElementsByClassName("startCombatButton");
     for (var i = 0; i < disabler.length; i++) {
@@ -596,7 +835,7 @@ class Enemy {
       damage -= currentShield;
       }
       if (damage >= 0){
-        player.health -= damage;//damage;
+        player.currentHealth -= damage;//damage;
       }
       else
       {
@@ -619,9 +858,9 @@ class Knight extends Enemy {
   attackPlayer() {
     if (this.health > 0)
     {
-    player.health -= this.enemyAttack;
+    player.currentHealth -= this.enemyAttack;
     this.enemyAttack += this.enemyAttack;
-    updateScreen('playerHealth', player.health);
+    updateScreen('playerHealth', player.currentHealth);
   }
   }
   displayIntent() {
@@ -657,12 +896,12 @@ class Rogue extends Enemy {
     {
       if(player.maxStrength > 9)
       {
-    player.health -= this.enemyAttack;
+    player.currentHealth -= this.enemyAttack;
     player.maxStrength -= 4;
     updatePlayer();
       }
       else {
-        player.health -= this.enemyAttack * 2;
+        player.currentHealth -= this.enemyAttack * 2;
         updatePlayer();
       }
   }
