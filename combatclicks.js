@@ -568,7 +568,7 @@ function updateScreen(id, target){
 }
 
 function howToPlay(){
-  alert("Welcome! Click a class, click a room, and start clicking!\r\nEvery time you end your turn the foe will go if you haven't defeated it.\r\nStats matter! And so do the buttons you can collect.");
+  alert("Welcome! Firstly, every button is hoverable for more info! Everything from your abilities to the classes themselves!\r\nThere are three stats:\r\nStrength - Dictates how hard you hit.\r\nAgility - Dictates how many clicks you get per turn.\r\nIntelligence - Dictates how long your turn is.\r\nFoes will keep hitting you until you defeat them! Good luck!");
 }
 
 function updatePlayer() {
@@ -635,23 +635,32 @@ function classSelection(name){
 }
 
 function beginCombat(){
-  if (completedRooms >= 50)
+  if (completedRooms < 5)
   {
     let enemies = [
-      //new Knight("Mega Knight", 10, 5),
-      new Mage("Mega Mage", 5, 50),
-      //new Rogue("Mega Big Boy", 15, 25)
+      new Knight("Knight", 8, 2),
+      new Mage("Mage", 6, 2),
+      new Rogue("Rogue", 6, 2)
     ];
-    fightingBoss = true;
+    currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+  }
+  else if (completedRooms > 5 && completedRooms < 10)
+  {
+    let enemies = [
+      new Knight("Mega Knight", 16, 4),
+      new Mage("Mega Mage", 12, 4),
+      new Rogue("Mega Rogue", 12, 4)
+    ];
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
   else {
-  let enemies = [
-    //new Knight("Knight", 10, 5),
-    new Mage("Mage", 5, 1),
-    //new Rogue("Rogue", 15, 10)
-  ];
-  currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    let enemies = [
+      new Knight("Super Knight", 32, 8),
+      new Mage("Super Mage", 24, 6),
+      new Rogue("Super Rogue", 24, 6)
+    ];
+    currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
+    fightingBoss = true;
   }
 $("#log").show();
 updateEnemy();
@@ -886,7 +895,7 @@ class Mage extends Enemy {
     }
   }
   displayIntent() {
-    updateScreen('combatlog', "The Knight intends to hit you");
+    updateScreen('combatlog', "The Mage intends to hit you");
   }
 }
 
@@ -907,7 +916,7 @@ class Rogue extends Enemy {
   }
 }
   displayIntent() {
-    updateScreen('combatlog', "The Knight intends to hit you");
+    updateScreen('combatlog', "The Rogue intends to hit you");
 
   }
 }
