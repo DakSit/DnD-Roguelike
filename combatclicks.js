@@ -419,7 +419,7 @@ function deckButtonActions(buttonid){
     case "clickCudgel":
     if(clicks >= 2)
     {
-    currentEnemy.health -= (999 + (player.currentStrength));
+    currentEnemy.health -= (1 + (player.currentStrength));
     hitEnemy();
     updateClicks(2);
     }
