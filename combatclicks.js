@@ -882,9 +882,11 @@ class Mage extends Enemy {
   attackPlayer() {
     if (this.health > 0)
     {
-    if (player.maxIntelligence >= 6)
+    if (player.currentIntelligence >= 3)
     {
     super.damagePlayer();
+    player.currentIntelligence -= 2;
+    updatePlayer();
     }
     else
     {
@@ -903,11 +905,11 @@ class Rogue extends Enemy {
   attackPlayer() {
     if (this.health > 0)
     {
-      if(player.maxStrength > 9)
+      if(player.currentStrength > 3)
       {
-    player.currentHealth -= this.enemyAttack;
-    player.maxStrength -= 4;
-    updatePlayer();
+        player.currentHealth -= this.enemyAttack;
+        player.currentStrength -= 2;
+        updatePlayer();
       }
       else {
         player.currentHealth -= this.enemyAttack * 2;
