@@ -612,8 +612,8 @@ function classCretin() {
   player = new Hero(heroName, "Cretin", 10, 10, 0, 0, 0, 0, 0, 0, 0);
    updatePlayer();
    createEntireCardList();
+   addButton(0);
    addButton(1);
-   addButton(2);
    addButton(4);
    displayDeck();
    showRooms();
