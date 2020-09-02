@@ -644,7 +644,7 @@ function beginCombat(){
     ];
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
-  else if (completedRooms > 5 && completedRooms < 10)
+  else if ((completedRooms >= 5) && (completedRooms < 10))
   {
     let enemies = [
       new Knight("Mega Knight", 16, 4),
