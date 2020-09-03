@@ -867,7 +867,7 @@ class Knight extends Enemy {
   attackPlayer() {
     if (this.health > 0)
     {
-    player.currentHealth -= this.enemyAttack;
+    super.damagePlayer();
     this.enemyAttack += this.enemyAttack;
     updateScreen('playerHealth', player.currentHealth);
   }
@@ -891,7 +891,6 @@ class Mage extends Enemy {
     else
     {
     super.damagePlayer();
-    super.damagePlayer();
     updatePlayer();
     }
     }
@@ -907,12 +906,12 @@ class Rogue extends Enemy {
     {
       if(player.currentStrength > 3)
       {
-        player.currentHealth -= this.enemyAttack;
+        super.damagePlayer();
         player.currentStrength -= 2;
         updatePlayer();
       }
       else {
-        player.currentHealth -= this.enemyAttack * 2;
+        super.damagePlayer();
         updatePlayer();
       }
   }
