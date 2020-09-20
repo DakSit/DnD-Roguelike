@@ -191,16 +191,6 @@ body {
 }
 
 
-@media only screen and (max-width: 600px) {
-  .characterOptions {
-    height: 100%;
-  }
-
-  .body {
-    width: 100%;
-  }
-}
-
 button {
   justify-content: center;
   align-items: center;
