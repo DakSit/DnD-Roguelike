@@ -638,26 +638,26 @@ function beginCombat(){
   if (completedRooms < 5)
   {
     let enemies = [
-      new Knight("Knight", 8, 2),
-      new Mage("Mage", 6, 2),
-      new Rogue("Rogue", 6, 2)
+      new Knight("Knight", 8, 1),
+      new Mage("Mage", 6, 1),
+      new Rogue("Rogue", 6, 1)
     ];
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
   else if ((completedRooms >= 5) && (completedRooms < 10))
   {
     let enemies = [
-      new Knight("Mega Knight", 16, 4),
-      new Mage("Mega Mage", 12, 4),
-      new Rogue("Mega Rogue", 12, 4)
+      new Knight("Mega Knight", 16, 2),
+      new Mage("Mega Mage", 12, 2),
+      new Rogue("Mega Rogue", 12, 2)
     ];
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
   }
   else {
     let enemies = [
-      new Knight("Super Knight", 32, 8),
-      new Mage("Super Mage", 24, 6),
-      new Rogue("Super Rogue", 24, 6)
+      new Knight("Super Knight", 32, 4),
+      new Mage("Super Mage", 24, 4),
+      new Rogue("Super Rogue", 24, 4)
     ];
     currentEnemy = enemies[Math.floor(Math.random() * enemies.length)];
     fightingBoss = true;
